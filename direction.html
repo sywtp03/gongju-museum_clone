@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>오시는길 - 국립공주박물관</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  <style>
+    .direction-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-bottom:48px;}
+    .dir-box{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:28px;}
+    .dir-box h4{font-family:var(--font-serif);font-size:17px;color:var(--dark);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--gold);display:flex;align-items:center;gap:8px;}
+    .dir-box dl{display:grid;grid-template-columns:auto 1fr;gap:10px 16px;font-size:14px;}
+    .dir-box dt{color:var(--text-muted);font-weight:600;white-space:nowrap;}
+    .dir-box dd{color:var(--text);line-height:1.7;}
+    .map-embed{border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);height:420px;background:#e8e4dc;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;margin-bottom:40px;}
+    .map-embed__icon{font-size:56px;}
+    .map-embed__addr{font-family:var(--font-serif);font-size:18px;color:var(--dark);font-weight:700;}
+    .map-embed__sub{font-size:13px;color:var(--text-muted);}
+    .map-embed__btn{background:var(--gold);color:var(--dark);padding:10px 24px;font-size:14px;font-weight:700;border-radius:2px;transition:background .3s;}
+    .map-embed__btn:hover{background:var(--gold-dark);color:#fff;}
+    @media(max-width:768px){.direction-grid{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+<div class="gov-bar"><div class="gov-bar__inner"><span class="gov-bar__flag-emoji">🇰🇷</span><span>이 누리집은 대한민국 공식 전자정부 누리집입니다.</span></div></div>
+<div class="info-bar"><div class="info-bar__inner container"><ul class="info-bar__list"><li><strong>관람시간</strong><span>09:00 - 18:00</span></li><li><strong>휴관일</strong><span>매주 월요일</span></li><li><strong>문의전화</strong><span>041-850-6300</span></li></ul><a href="reservation.html" class="info-bar__reserve">통합예약 서비스 →</a></div></div>
+<header class="header" id="header">
+  <div class="header__inner container">
+    <h1 class="header__logo"><a href="index.html"><span class="logo-sub">문화체육관광부</span><span class="logo-main">국립공주박물관</span></a></h1>
+    <div class="header__utils"><a href="#" class="util-link">로그인</a><button class="all-menu-btn" onclick="toggleAllMenu()"><span class="hamburger"></span><span class="hamburger"></span><span class="hamburger"></span><span>전체메뉴</span></button></div>
+  </div>
+  <nav class="gnb"><div class="container"><ul class="gnb__list">
+    <li class="gnb__item"><a href="visit.html" class="gnb__link" style="color:var(--gold-light)">관람정보</a></li>
+    <li class="gnb__item"><a href="exhibit.html" class="gnb__link">전시</a></li>
+    <li class="gnb__item"><a href="education.html" class="gnb__link">교육/행사</a></li>
+    <li class="gnb__item"><a href="collection.html" class="gnb__link">유물/학습</a></li>
+    <li class="gnb__item"><a href="news.html" class="gnb__link">소식/참여</a></li>
+  </ul></div></nav>
+</header>
+<div class="all-menu-overlay" id="allMenuOverlay"><div class="all-menu"><div class="all-menu__header"><h2>전체메뉴</h2><button class="all-menu__close" onclick="toggleAllMenu()">✕</button></div><div class="all-menu__body"><ul class="all-menu__cats"><li><strong>관람정보</strong><ul><li><a href="visit.html">이용안내</a></li><li><a href="reservation.html">예약안내</a></li><li><a href="about.html">박물관소개</a></li><li><a href="direction.html">오시는길</a></li></ul></li><li><strong>전시</strong><ul><li><a href="exhibit.html">전시안내</a></li></ul></li><li><strong>교육/행사</strong><ul><li><a href="education.html">교육프로그램</a></li></ul></li><li><strong>유물/학습</strong><ul><li><a href="collection.html">소장품</a></li></ul></li><li><strong>소식/참여</strong><ul><li><a href="news.html">소식</a></li></ul></li></ul></div></div></div>
+
+<section class="subpage-hero">
+  <div class="subpage-hero__bg"><img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=1600&q=80" alt="오시는길"/><div class="subpage-hero__overlay"></div></div>
+  <div class="subpage-hero__content container">
+    <div class="subpage-breadcrumb"><a href="index.html">홈</a> › <a href="visit.html">관람정보</a> › <span>오시는길</span></div>
+    <h2 class="subpage-hero__title">오시는길</h2>
+    <p class="subpage-hero__sub">충청남도 공주시 관광단지길 34</p>
+  </div>
+</section>
+
+<main class="subpage-content">
+<div class="container">
+
+  <section class="sub-section">
+    <h3 class="sub-section-title">위치 안내</h3>
+    <div class="map-embed">
+      <div class="map-embed__icon">📍</div>
+      <div class="map-embed__addr">국립공주박물관</div>
+      <div class="map-embed__sub">[32535] 충청남도 공주시 관광단지길 34 (웅진동 360번지)</div>
+      <a href="https://map.naver.com/v5/search/국립공주박물관" target="_blank" class="map-embed__btn">네이버 지도로 보기 →</a>
+    </div>
+  </section>
+
+  <section class="sub-section">
+    <h3 class="sub-section-title">교통 안내</h3>
+    <div class="direction-grid">
+      <div class="dir-box">
+        <h4>🚌 대중교통</h4>
+        <dl>
+          <dt>시내버스</dt><dd>공주종합터미널 → 박물관앞 정류장<br/>125번, 126번, 127번 승차 (약 20분)</dd>
+          <dt>KTX</dt><dd>KTX 공주역 → 공주종합터미널 환승 → 시내버스 이용<br/>(공주역에서 약 40분 소요)</dd>
+          <dt>고속버스</dt><dd>공주종합터미널 하차 후 시내버스 이용</dd>
+        </dl>
+      </div>
+      <div class="dir-box">
+        <h4>🚗 자가용</h4>
+        <dl>
+          <dt>서울 방면</dt><dd>경부고속도로 → 천안논산고속도로 → 공주IC → 박물관 (약 1시간 30분)</dd>
+          <dt>대전 방면</dt><dd>경부고속도로 → 호남고속도로지선 → 공주IC → 박물관 (약 40분)</dd>
+          <dt>주차</dt><dd>박물관 전용 주차장 300대 수용 (무료)</dd>
+        </dl>
+      </div>
+      <div class="dir-box">
+        <h4>✈️ 인근 공항</h4>
+        <dl>
+          <dt>청주국제공항</dt><dd>공항 → 청주시내 → 고속버스 공주행 (약 1시간 30분)</dd>
+          <dt>인천국제공항</dt><dd>공항리무진 → 공주 (약 2시간 30분)</dd>
+        </dl>
+      </div>
+      <div class="dir-box">
+        <h4>🅿️ 주차 안내</h4>
+        <dl>
+          <dt>위치</dt><dd>박물관 정문 우측 제1주차장 / 후문 제2주차장</dd>
+          <dt>운영시간</dt><dd>08:30 ~ 18:30 (박물관 운영일)</dd>
+          <dt>요금</dt><dd>무료</dd>
+          <dt>장애인 주차</dt><dd>정문 근처 전용 공간 10면 배치</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="sub-section">
+    <h3 class="sub-section-title">주변 관광지</h3>
+    <div class="cards-grid" style="grid-template-columns:repeat(3,1fr)">
+      <div class="card"><div class="card__img"><img src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=700&q=80" alt="공산성" loading="lazy"/></div><div class="card__body"><h4 class="card__title">공산성</h4><p class="card__desc">백제 웅진 시기의 산성. 유네스코 세계유산. 박물관에서 도보 15분 거리.</p></div></div>
+      <div class="card"><div class="card__img"><img src="https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=700&q=80" alt="무령왕릉" loading="lazy"/></div><div class="card__body"><h4 class="card__title">무령왕릉 &amp; 왕릉원</h4><p class="card__desc">무령왕릉이 위치한 백제 왕릉 단지. 박물관에서 차량 5분 거리.</p></div></div>
+      <div class="card"><div class="card__img"><img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=700&q=80" alt="연미산 자연미술공원" loading="lazy"/></div><div class="card__body"><h4 class="card__title">연미산 자연미술공원</h4><p class="card__desc">자연 속 야외 미술 작품을 감상할 수 있는 생태 공원. 박물관 인근 위치.</p></div></div>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<footer class="footer"><div class="footer__bottom"><div class="container"><p class="footer__copy">COPYRIGHT 2025 GONGJU NATIONAL MUSEUM. ALL RIGHTS RESERVED.</p></div></div><button class="to-top" id="toTop" onclick="scrollToTop()">▲</button></footer>
+<script src="script.js"></script>
+<script>function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'});}window.addEventListener('scroll',()=>{document.getElementById('toTop')?.classList.toggle('visible',window.scrollY>400);});</script>
+</body>
+</html>

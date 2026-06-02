@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>교육/행사 - 국립공주박물관</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    .program-card { display: flex; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: all var(--transition); margin-bottom: 16px; }
+    .program-card:hover { box-shadow: var(--shadow-md); border-color: var(--gold); }
+    .program-card__img { width: 220px; flex-shrink: 0; overflow: hidden; }
+    .program-card__img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
+    .program-card:hover .program-card__img img { transform: scale(1.05); }
+    .program-card__body { padding: 24px 28px; flex: 1; }
+    .program-card__cat { display: inline-block; background: var(--gold); color: var(--dark); font-size: 10px; font-weight: 700; padding: 2px 10px; margin-bottom: 10px; letter-spacing: 0.08em; }
+    .program-card__cat.event-cat { background: var(--brown); color: var(--white); }
+    .program-card__title { font-family: var(--font-serif); font-size: 18px; color: var(--dark); margin-bottom: 8px; }
+    .program-card__meta { font-size: 13px; color: var(--text-muted); margin-bottom: 10px; line-height: 1.7; }
+    .program-card__desc { font-size: 14px; color: var(--text); line-height: 1.7; }
+    .program-card__btn { display: inline-block; margin-top: 14px; border: 1px solid var(--gold); color: var(--gold-dark); padding: 7px 18px; font-size: 13px; border-radius: 2px; transition: all var(--transition); }
+    .program-card__btn:hover { background: var(--gold); color: var(--dark); }
+    .apply-box { background: var(--dark); color: var(--cream-2); padding: 40px; border-radius: var(--radius); text-align: center; margin-top: 40px; }
+    .apply-box h4 { font-family: var(--font-serif); font-size: 22px; color: var(--gold-light); margin-bottom: 10px; }
+    .apply-box p { font-size: 14px; color: rgba(255,255,255,0.65); margin-bottom: 20px; }
+    .apply-btn { display: inline-block; background: var(--gold); color: var(--dark); padding: 12px 32px; font-size: 15px; font-weight: 700; border-radius: 2px; transition: all var(--transition); }
+    .apply-btn:hover { background: var(--gold-light); }
+    @media(max-width:768px){ .program-card{flex-direction:column;} .program-card__img{width:100%;height:180px;} }
+  </style>
+</head>
+<body>
+  <div class="gov-bar"><div class="gov-bar__inner"><span class="gov-bar__flag-emoji">🇰🇷</span><span>이 누리집은 대한민국 공식 전자정부 누리집입니다.</span></div></div>
+  <div class="info-bar"><div class="info-bar__inner container"><ul class="info-bar__list"><li><strong>관람시간</strong><span>09:00 - 18:00</span></li><li><strong>휴관일</strong><span>매주 월요일</span></li><li><strong>문의전화</strong><span>041-850-6300</span></li></ul><a href="reservation.html" class="info-bar__reserve">통합예약 서비스 →</a></div></div>
+  <header class="header" id="header">
+    <div class="header__inner container">
+      <h1 class="header__logo"><a href="index.html"><span class="logo-sub">문화체육관광부</span><span class="logo-main">국립공주박물관</span></a></h1>
+      <div class="header__utils"><a href="#" class="util-link">로그인</a><button class="all-menu-btn" onclick="toggleAllMenu()"><span class="hamburger"></span><span class="hamburger"></span><span class="hamburger"></span><span>전체메뉴</span></button></div>
+    </div>
+    <nav class="gnb"><div class="container"><ul class="gnb__list">
+      <li class="gnb__item"><a href="visit.html" class="gnb__link">관람정보</a></li>
+      <li class="gnb__item"><a href="exhibit.html" class="gnb__link">전시</a></li>
+      <li class="gnb__item"><a href="education.html" class="gnb__link" style="color:var(--gold-light)">교육/행사</a></li>
+      <li class="gnb__item"><a href="collection.html" class="gnb__link">유물/학습</a></li>
+      <li class="gnb__item"><a href="news.html" class="gnb__link">소식/참여</a></li>
+    </ul></div></nav>
+  </header>
+  <div class="all-menu-overlay" id="allMenuOverlay"><div class="all-menu"><div class="all-menu__header"><h2>전체메뉴</h2><button class="all-menu__close" onclick="toggleAllMenu()">✕</button></div><div class="all-menu__body"><ul class="all-menu__cats"><li><strong>관람정보</strong><ul><li><a href="visit.html">이용안내</a></li><li><a href="reservation.html">예약안내</a></li></ul></li><li><strong>전시</strong><ul><li><a href="exhibit.html">전시안내</a></li></ul></li><li><strong>교육/행사</strong><ul><li><a href="education.html">교육프로그램</a></li><li><a href="education.html#event">문화행사</a></li><li><a href="education.html#school">학교단체교육</a></li></ul></li><li><strong>유물/학습</strong><ul><li><a href="collection.html">소장품</a></li></ul></li><li><strong>소식/참여</strong><ul><li><a href="news.html">소식</a></li></ul></li></ul></div></div></div>
+
+  <section class="subpage-hero">
+    <div class="subpage-hero__bg">
+      <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=1600&q=80" alt="교육/행사" />
+      <div class="subpage-hero__overlay" style="background:linear-gradient(90deg,rgba(10,40,10,0.85) 30%,rgba(10,40,10,0.3) 100%)"></div>
+    </div>
+    <div class="subpage-hero__content container">
+      <div class="subpage-breadcrumb"><a href="index.html">홈</a> › <span>교육/행사</span></div>
+      <h2 class="subpage-hero__title">교육/행사</h2>
+      <p class="subpage-hero__sub">살아있는 역사를 체험하는 다양한 프로그램</p>
+    </div>
+  </section>
+
+  <main class="subpage-content">
+    <div class="container">
+
+      <!-- 교육 프로그램 -->
+      <section class="sub-section" id="education">
+        <h3 class="sub-section-title">교육프로그램</h3>
+        <p class="sub-section-sub">어린이부터 성인까지, 다양한 교육 프로그램이 운영됩니다</p>
+
+        <div class="program-card">
+          <div class="program-card__img">
+            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&q=80" alt="고고학 체험교실" loading="lazy" />
+          </div>
+          <div class="program-card__body">
+            <span class="program-card__cat">어린이 교육</span>
+            <h4 class="program-card__title">2025년 여름방학 어린이 고고학 체험교실</h4>
+            <div class="program-card__meta">
+              📅 2025.07.01 ~ 2025.08.15 | 매주 화·목 10:00~12:00<br/>
+              👥 대상: 초등학생 (1~6학년) | 회당 20명<br/>
+              💰 참가비: 무료
+            </div>
+            <p class="program-card__desc">고대 유적 발굴 체험을 통해 역사와 고고학을 배우는 여름방학 특별 프로그램입니다. 미니 발굴 체험, 유물 복원 체험 등 다양한 활동으로 구성됩니다.</p>
+            <a href="reservation.html" class="program-card__btn">신청하기 →</a>
+          </div>
+        </div>
+
+        <div class="program-card">
+          <div class="program-card__img">
+            <img src="https://images.unsplash.com/photo-1551029506-0807df4e2031?w=600&q=80" alt="도자기 체험" loading="lazy" />
+          </div>
+          <div class="program-card__body">
+            <span class="program-card__cat">가족 교육</span>
+            <h4 class="program-card__title">백제 토기 만들기 — 가족 도자기 체험</h4>
+            <div class="program-card__meta">
+              📅 매월 둘째·넷째 주 토요일 | 13:00~15:00<br/>
+              👥 대상: 가족 단위 (어린이 포함) | 회당 15가족<br/>
+              💰 참가비: 무료
+            </div>
+            <p class="program-card__desc">백제시대 토기 제작 방법을 배우고 직접 흙으로 도자기를 빚어보는 가족 체험 프로그램입니다. 완성된 작품은 소성 후 가져갈 수 있습니다.</p>
+            <a href="reservation.html" class="program-card__btn">신청하기 →</a>
+          </div>
+        </div>
+
+        <div class="program-card">
+          <div class="program-card__img">
+            <img src="https://images.unsplash.com/photo-1580541832626-2a7131ee809f?w=600&q=80" alt="성인 강좌" loading="lazy" />
+          </div>
+          <div class="program-card__body">
+            <span class="program-card__cat">성인 교육</span>
+            <h4 class="program-card__title">박물관 아카데미 — 백제사 심화 강좌</h4>
+            <div class="program-card__meta">
+              📅 2025.09.03 ~ 2025.11.26 | 매주 수요일 19:00~21:00<br/>
+              👥 대상: 성인 (18세 이상) | 30명<br/>
+              💰 참가비: 무료
+            </div>
+            <p class="program-card__desc">고고학자와 역사학자가 직접 강의하는 백제사 전문 강좌입니다. 10회 과정으로 구성되며, 수료증이 발급됩니다.</p>
+            <a href="reservation.html" class="program-card__btn">신청하기 →</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 문화행사 -->
+      <section class="sub-section" id="event">
+        <h3 class="sub-section-title">문화행사</h3>
+        <p class="sub-section-sub">박물관에서 즐기는 특별한 문화 행사</p>
+        <div class="cards-grid">
+          <div class="card">
+            <div class="card__img"><img src="https://images.unsplash.com/photo-1506157786151-b8491531f063?w=800&q=80" alt="야간 행사" loading="lazy" /></div>
+            <div class="card__body">
+              <span class="card__cat" style="background:var(--brown);color:white">야간 행사</span>
+              <h4 class="card__title">무령왕릉 사마의 여름 밤</h4>
+              <p class="card__meta">📅 2025.07.19 ~ 07.20 | 19:00~22:00</p>
+              <p class="card__desc">무령왕릉을 배경으로 한 야간 문화 행사. 국악 공연, 역사 해설, 야간 관람 특별 프로그램이 진행됩니다.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card__img"><img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&q=80" alt="문화의 날" loading="lazy" /></div>
+            <div class="card__body">
+              <span class="card__cat" style="background:var(--brown);color:white">정기 행사</span>
+              <h4 class="card__title">문화가 있는 날 특별 프로그램</h4>
+              <p class="card__meta">📅 매월 마지막 수요일</p>
+              <p class="card__desc">매월 마지막 수요일 야간개장과 함께 특별 공연, 체험, 강연 등 다양한 문화 프로그램을 무료로 즐길 수 있습니다.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card__img"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="전통문화체험" loading="lazy" /></div>
+            <div class="card__body">
+              <span class="card__cat" style="background:var(--brown);color:white">체험 행사</span>
+              <h4 class="card__title">백제 전통 놀이 체험 마당</h4>
+              <p class="card__meta">📅 2025.08.15 | 10:00~17:00</p>
+              <p class="card__desc">광복절을 맞아 백제 시대의 전통 놀이와 문화를 체험하는 특별 행사. 투호, 윷놀이 등 전통놀이 체험 부스 운영.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 학교단체교육 -->
+      <section class="sub-section" id="school">
+        <h3 class="sub-section-title">학교단체교육</h3>
+        <p class="sub-section-sub">학교 단체 관람 및 교육 신청 안내</p>
+        <table class="info-table" style="margin-bottom:20px">
+          <tr><th>신청방법</th><td>온라인 사전 신청 (최소 2주 전) 또는 전화 문의</td></tr>
+          <tr><th>대상</th><td>유치원, 초·중·고등학교 단체</td></tr>
+          <tr><th>인원</th><td>최소 20명 ~ 최대 100명</td></tr>
+          <tr><th>프로그램</th><td>전시 관람 + 해설사 해설 (60분) + 체험 활동 (30분)</td></tr>
+          <tr><th>참가비</th><td>무료</td></tr>
+          <tr><th>문의</th><td>041-850-6355 (교육팀)</td></tr>
+        </table>
+        <a href="reservation.html" class="apply-btn" style="display:inline-block;background:var(--gold);color:var(--dark);padding:12px 32px;font-size:15px;font-weight:700;border-radius:2px;">단체 신청하기 →</a>
+      </section>
+
+      <div class="apply-box">
+        <h4>교육 프로그램 신청</h4>
+        <p>온라인 통합예약 서비스를 통해 교육 프로그램을 신청하실 수 있습니다.<br />문의사항은 교육팀(041-850-6355)으로 연락주세요.</p>
+        <a href="reservation.html" class="apply-btn">통합예약 서비스 바로가기 →</a>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer"><div class="footer__bottom"><div class="container"><p class="footer__copy">COPYRIGHT 2025 GONGJU NATIONAL MUSEUM. ALL RIGHTS RESERVED.</p></div></div><button class="to-top" id="toTop" onclick="scrollToTop()">▲</button></footer>
+  <script src="script.js"></script>
+  <script>function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'});} window.addEventListener('scroll',()=>{document.getElementById('toTop')?.classList.toggle('visible',window.scrollY>400);});</script>
+</body>
+</html>

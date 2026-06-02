@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>유물/학습 - 국립공주박물관</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  <style>
+    /* ── 검색 바 ── */
+    .search-bar{display:flex;gap:12px;margin-bottom:36px;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;align-items:flex-end;flex-wrap:wrap;}
+    .search-field{display:flex;flex-direction:column;gap:6px;flex:1;min-width:160px;}
+    .search-field label{font-size:12px;font-weight:600;color:var(--text-muted);}
+    .search-field select,.search-field input{border:1px solid var(--border);border-radius:2px;padding:9px 12px;font-size:13px;font-family:inherit;color:var(--text);background:var(--cream);}
+    .search-submit{background:var(--gold);color:var(--dark);border:none;padding:9px 24px;font-size:13px;font-weight:700;border-radius:2px;cursor:pointer;transition:background var(--transition);white-space:nowrap;}
+    .search-submit:hover{background:var(--gold-dark);}
+
+    /* ── 소장품 그리드 ── */
+    .coll-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-bottom:40px;}
+    .coll-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all var(--transition);}
+    .coll-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-md);border-color:var(--gold);}
+    .coll-card__thumb{position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--dark-2);}
+    .coll-card__thumb img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s;}
+    .coll-card:hover .coll-card__thumb img{transform:scale(1.06);}
+    .coll-card__grade{position:absolute;top:10px;left:10px;background:var(--gold);color:var(--dark);font-size:10px;font-weight:700;padding:2px 8px;letter-spacing:.06em;}
+    .coll-card__grade.treasure{background:var(--brown);color:#fff;}
+    .coll-card__grade.registered{background:#555;color:#fff;}
+    .coll-card__info{padding:14px 16px;}
+    .coll-card__info h4{font-family:var(--font-serif);font-size:14px;color:var(--dark);margin-bottom:5px;line-height:1.4;}
+    .coll-card__info p{font-size:11px;color:var(--text-muted);line-height:1.5;}
+    .coll-card__info .period{font-size:11px;color:var(--gold-dark);margin-top:3px;}
+
+    /* ── 상세 모달 ── */
+    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:300;align-items:center;justify-content:center;}
+    .modal-overlay.open{display:flex;}
+    .modal{background:var(--cream);border-radius:var(--radius);max-width:760px;width:90%;max-height:90vh;overflow-y:auto;display:grid;grid-template-columns:1fr 1fr;}
+    .modal__img{background:var(--dark-2);}
+    .modal__img img{width:100%;height:100%;object-fit:cover;}
+    .modal__body{padding:36px 32px;position:relative;}
+    .modal__close{position:absolute;top:16px;right:16px;font-size:20px;color:#888;cursor:pointer;transition:color .2s;}
+    .modal__close:hover{color:var(--gold);}
+    .modal__grade{display:inline-block;background:var(--gold);color:var(--dark);font-size:11px;font-weight:700;padding:3px 12px;margin-bottom:14px;letter-spacing:.06em;}
+    .modal__title{font-family:var(--font-serif);font-size:22px;color:var(--dark);margin-bottom:6px;}
+    .modal__sub{font-size:13px;color:var(--text-muted);margin-bottom:20px;}
+    .modal__dl{display:grid;grid-template-columns:auto 1fr;gap:8px 16px;font-size:13px;border-top:1px solid var(--border);padding-top:16px;}
+    .modal__dl dt{color:var(--text-muted);font-weight:600;}
+    .modal__dl dd{color:var(--text);}
+    @media(max-width:680px){.modal{grid-template-columns:1fr;} .modal__img{height:220px;} .coll-grid{grid-template-columns:repeat(2,1fr);}}
+
+    /* ── 아카이브 / 학술 ── */
+    .archive-list{display:flex;flex-direction:column;gap:12px;}
+    .archive-item{display:flex;align-items:center;gap:16px;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;transition:all var(--transition);}
+    .archive-item:hover{border-color:var(--gold);background:var(--cream);}
+    .archive-item__icon{font-size:28px;width:48px;text-align:center;flex-shrink:0;}
+    .archive-item__body{flex:1;}
+    .archive-item__title{font-size:15px;font-weight:600;color:var(--dark);margin-bottom:4px;}
+    .archive-item__meta{font-size:12px;color:var(--text-muted);}
+    .archive-item__btn{border:1px solid var(--gold);color:var(--gold-dark);padding:6px 14px;font-size:12px;border-radius:2px;white-space:nowrap;transition:all var(--transition);}
+    .archive-item__btn:hover{background:var(--gold);color:var(--dark);}
+    .pagination{display:flex;justify-content:center;gap:6px;margin-top:32px;}
+    .page-btn{width:36px;height:36px;border:1px solid var(--border);border-radius:2px;font-size:13px;color:var(--text-muted);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all var(--transition);}
+    .page-btn.active,.page-btn:hover{background:var(--gold);color:var(--dark);border-color:var(--gold);}
+  </style>
+</head>
+<body>
+
+<!-- ── 공통 상단 ── -->
+<div class="gov-bar"><div class="gov-bar__inner"><span class="gov-bar__flag-emoji">🇰🇷</span><span>이 누리집은 대한민국 공식 전자정부 누리집입니다.</span><button class="gov-bar__toggle" onclick="toggleGovInfo()">공식 누리집 확인방법 ▾</button></div><div class="gov-info" id="govInfo"></div></div>
+<div class="info-bar"><div class="info-bar__inner container"><ul class="info-bar__list"><li><strong>관람시간</strong><span>09:00 - 18:00</span></li><li><strong>휴관일</strong><span>매주 월요일</span></li><li><strong>문의전화</strong><span>041-850-6300</span></li></ul><a href="reservation.html" class="info-bar__reserve">통합예약 서비스 →</a></div></div>
+<header class="header" id="header">
+  <div class="header__inner container">
+    <h1 class="header__logo"><a href="index.html"><span class="logo-sub">문화체육관광부</span><span class="logo-main">국립공주박물관</span></a></h1>
+    <div class="header__utils"><a href="#" class="util-link">로그인</a><div class="lang-select"><button class="lang-select__btn" onclick="toggleLang()">KOR ▾</button><ul class="lang-select__list" id="langList"><li class="active"><a href="#">KOR</a></li><li><a href="#">ENG</a></li><li><a href="#">CHN</a></li><li><a href="#">JPN</a></li></ul></div><button class="all-menu-btn" onclick="toggleAllMenu()"><span class="hamburger"></span><span class="hamburger"></span><span class="hamburger"></span><span>전체메뉴</span></button></div>
+  </div>
+  <nav class="gnb"><div class="container"><ul class="gnb__list">
+    <li class="gnb__item"><a href="visit.html" class="gnb__link">관람정보</a></li>
+    <li class="gnb__item"><a href="exhibit.html" class="gnb__link">전시</a></li>
+    <li class="gnb__item"><a href="education.html" class="gnb__link">교육/행사</a></li>
+    <li class="gnb__item"><a href="collection.html" class="gnb__link" style="color:var(--gold-light)">유물/학습</a></li>
+    <li class="gnb__item"><a href="news.html" class="gnb__link">소식/참여</a></li>
+  </ul></div></nav>
+</header>
+<div class="all-menu-overlay" id="allMenuOverlay"><div class="all-menu"><div class="all-menu__header"><h2>전체메뉴</h2><button class="all-menu__close" onclick="toggleAllMenu()">✕</button></div><div class="all-menu__body"><ul class="all-menu__cats"><li><strong>관람정보</strong><ul><li><a href="visit.html">이용안내</a></li><li><a href="reservation.html">예약안내</a></li><li><a href="about.html">박물관소개</a></li><li><a href="direction.html">오시는길</a></li></ul></li><li><strong>전시</strong><ul><li><a href="exhibit.html">상설전시</a></li><li><a href="exhibit.html#special">특별전시</a></li></ul></li><li><strong>교육/행사</strong><ul><li><a href="education.html">교육프로그램</a></li><li><a href="education.html#event">문화행사</a></li></ul></li><li><strong>유물/학습</strong><ul><li><a href="collection.html">소장품</a></li><li><a href="collection.html#major">주요 소장품</a></li><li><a href="collection.html#archive">웅진백제 아카이브</a></li><li><a href="collection.html#research">학술자료</a></li></ul></li><li><strong>소식/참여</strong><ul><li><a href="news.html">알림·소식</a></li></ul></li></ul></div></div></div>
+
+<!-- ── 히어로 ── -->
+<section class="subpage-hero">
+  <div class="subpage-hero__bg"><img src="https://images.unsplash.com/photo-1589656966895-2f33e7653819?w=1600&q=80" alt="유물/학습"/><div class="subpage-hero__overlay" style="background:linear-gradient(90deg,rgba(26,8,0,.88) 35%,rgba(26,8,0,.25) 100%)"></div></div>
+  <div class="subpage-hero__content container">
+    <div class="subpage-breadcrumb"><a href="index.html">홈</a> › <span>유물/학습</span></div>
+    <h2 class="subpage-hero__title">유물/학습</h2>
+    <p class="subpage-hero__sub">국보와 보물로 지정된 무령왕릉의 귀중한 문화유산</p>
+  </div>
+</section>
+
+<main class="subpage-content">
+<div class="container">
+
+  <!-- ── 소장품 검색 ── -->
+  <section class="sub-section" id="search-section">
+    <h3 class="sub-section-title">소장품 검색</h3>
+    <p class="sub-section-sub">국립공주박물관 소장 유물을 검색하실 수 있습니다</p>
+    <div class="search-bar">
+      <div class="search-field"><label>분류</label><select><option>전체</option><option>금속공예</option><option>토기/도자기</option><option>석조각</option><option>회화/서예</option><option>목칠공예</option></select></div>
+      <div class="search-field"><label>시대</label><select><option>전체</option><option>선사시대</option><option>백제</option><option>삼국시대</option><option>고려</option><option>조선</option></select></div>
+      <div class="search-field" style="flex:2"><label>키워드 검색</label><input type="text" placeholder="유물명, 지정번호 등을 입력하세요"/></div>
+      <button class="search-submit">검색</button>
+    </div>
+
+    <div class="coll-grid" id="collGrid"></div>
+    <div class="pagination">
+      <button class="page-btn active">1</button>
+      <button class="page-btn">2</button>
+      <button class="page-btn">3</button>
+      <button class="page-btn">4</button>
+      <button class="page-btn">5</button>
+      <button class="page-btn">›</button>
+    </div>
+  </section>
+
+  <!-- ── 주요 소장품 ── -->
+  <section class="sub-section" id="major">
+    <h3 class="sub-section-title">주요 소장품</h3>
+    <p class="sub-section-sub">국보·보물로 지정된 대표 소장품을 소개합니다</p>
+    <div class="coll-grid" id="majorGrid"></div>
+  </section>
+
+  <!-- ── 웅진백제문화 아카이브 ── -->
+  <section class="sub-section" id="archive">
+    <h3 class="sub-section-title">웅진백제문화 아카이브</h3>
+    <p class="sub-section-sub">백제 문화 관련 디지털 자료를 열람하실 수 있습니다</p>
+    <div class="archive-list">
+      <div class="archive-item"><div class="archive-item__icon">📜</div><div class="archive-item__body"><div class="archive-item__title">무령왕릉 발굴조사 보고서 원문</div><div class="archive-item__meta">국립공주박물관 | 1973 | PDF 45.2MB</div></div><a href="#" class="archive-item__btn">열람하기</a></div>
+      <div class="archive-item"><div class="archive-item__icon">🗺</div><div class="archive-item__body"><div class="archive-item__title">공주 지역 유적 분포 GIS 데이터</div><div class="archive-item__meta">국립공주박물관 | 2023 | GIS/PDF</div></div><a href="#" class="archive-item__btn">열람하기</a></div>
+      <div class="archive-item"><div class="archive-item__icon">📷</div><div class="archive-item__body"><div class="archive-item__title">무령왕릉 유물 고화질 이미지 아카이브</div><div class="archive-item__meta">국립공주박물관 | 2022 | 이미지 2,450장</div></div><a href="#" class="archive-item__btn">열람하기</a></div>
+      <div class="archive-item"><div class="archive-item__icon">🎬</div><div class="archive-item__body"><div class="archive-item__title">웅진백제 문화유산 3D 모델 데이터</div><div class="archive-item__meta">국립공주박물관 | 2024 | 3D/OBJ</div></div><a href="#" class="archive-item__btn">열람하기</a></div>
+      <div class="archive-item"><div class="archive-item__icon">📚</div><div class="archive-item__body"><div class="archive-item__title">충청남도 역사문화 조사 보고서 (1~15권)</div><div class="archive-item__meta">국립공주박물관 | 1990~2024 | PDF 시리즈</div></div><a href="#" class="archive-item__btn">열람하기</a></div>
+    </div>
+  </section>
+
+  <!-- ── 학술자료 ── -->
+  <section class="sub-section" id="research">
+    <h3 class="sub-section-title">학술자료 · 출판물</h3>
+    <p class="sub-section-sub">박물관 발행 학술지 및 도록을 열람하세요</p>
+    <div class="cards-grid" style="grid-template-columns:repeat(3,1fr)">
+      <div class="card"><div class="card__img"><img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600&q=80" alt="학술지" loading="lazy"/></div><div class="card__body"><span class="card__cat">학술지</span><h4 class="card__title">공주박물관논총 제45호</h4><p class="card__meta">2024 | 국립공주박물관</p><p class="card__desc">백제 고고학 및 역사 분야 최신 연구 성과를 수록한 연간 학술지입니다.</p></div></div>
+      <div class="card"><div class="card__img"><img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=600&q=80" alt="도록" loading="lazy"/></div><div class="card__body"><span class="card__cat">도록</span><h4 class="card__title">무령왕릉 발굴 50주년 기념 도록</h4><p class="card__meta">2025 | 국립공주박물관</p><p class="card__desc">특별전 연계 발간 도록. 무령왕릉 출토 유물 전품 수록 (국문·영문 병기).</p></div></div>
+      <div class="card"><div class="card__img"><img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=600&q=80" alt="보고서" loading="lazy"/></div><div class="card__body"><span class="card__cat">보고서</span><h4 class="card__title">2024 발굴조사 연보</h4><p class="card__meta">2024 | 국립공주박물관</p><p class="card__desc">2024년도 충청권 발굴조사 현황 및 주요 성과를 정리한 연간 보고서.</p></div></div>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<!-- ── 유물 상세 모달 ── -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" id="modalBox">
+    <div class="modal__img"><img id="modalImg" src="" alt=""/></div>
+    <div class="modal__body">
+      <button class="modal__close" onclick="document.getElementById('modalOverlay').classList.remove('open')">✕</button>
+      <span class="modal__grade" id="modalGrade"></span>
+      <h3 class="modal__title" id="modalTitle"></h3>
+      <p class="modal__sub" id="modalSub"></p>
+      <dl class="modal__dl" id="modalDl"></dl>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer__top"><div class="container"><div class="footer__grid"><div class="footer__org"><p class="footer__logo-text">국립공주박물관</p><address>[32535] 충청남도 공주시 관광단지길 34<br/>Tel. 041-850-6300</address></div><div class="footer__links-group"><h4>바로가기</h4><ul><li><a href="visit.html">관람안내</a></li><li><a href="exhibit.html">전시</a></li><li><a href="education.html">교육/행사</a></li><li><a href="news.html">소식/참여</a></li></ul></div></div></div></div><div class="footer__bottom"><div class="container"><p class="footer__copy">COPYRIGHT 2025 GONGJU NATIONAL MUSEUM. ALL RIGHTS RESERVED.</p><div class="footer__related"><button class="related-btn" onclick="toggleRelated()">관련사이트 ▾</button><ul class="related-list" id="relatedList"><li><a href="http://www.museum.go.kr" target="_blank">국립중앙박물관</a></li><li><a href="http://gyeongju.museum.go.kr" target="_blank">국립경주박물관</a></li><li><a href="http://buyeo.museum.go.kr" target="_blank">국립부여박물관</a></li></ul></div></div></div><button class="to-top" id="toTop" onclick="scrollToTop()">▲</button></footer>
+
+<script src="script.js"></script>
+<script>
+const allItems = [
+  {grade:'국보',gradeClass:'',img:'images/무령왕 금제 관장식.jpg',title:'무령왕 금제 관장식',no:'국보 제154호',period:'백제 6세기',material:'금',size:'높이 30.7cm',desc:'무령왕의 관을 장식하던 금관 장식. 불꽃 모양의 입식이 특징이다.'},
+  {grade:'국보',gradeClass:'',img:'images/무령왕비 금제 관장식.jpg',title:'무령왕비 금제 관장식',no:'국보 제155호',period:'백제 6세기',material:'금',size:'높이 22.6cm',desc:'무령왕비의 관을 장식하던 금관 장식. 왕의 것보다 작고 섬세하다.'},
+  {grade:'국보',gradeClass:'',img:'images/무령왕릉 석수.jpg',title:'무령왕릉 석수',no:'국보 제162호',period:'백제 523년',material:'돌',size:'높이 30.8cm',desc:'무령왕릉 입구를 지키던 돌로 만든 상상의 동물.'},
+  {grade:'국보',gradeClass:'',img:'images/무령왕릉 지석.jpg',title:'무령왕릉 지석',no:'국보 제163호',period:'백제 523년',material:'석재',size:'41.5×35cm',desc:'무령왕과 왕비의 이름, 사망 연월일, 매장지가 기록된 묘지석.'},
+  {grade:'국보',gradeClass:'',img:'images/무령왕 금제 뒤꽂이.jpg',title:'무령왕 금제 뒤꽂이',no:'국보 제159호',period:'백제 6세기',material:'금',size:'길이 18.4cm',desc:'왕이 머리에 꽂던 금제 장신구. 정교한 세공이 돋보인다.'},
+  {grade:'국보',gradeClass:'',img:'무령왕비 금제 귀걸이.jpg',title:'무령왕비 금제 귀걸이',no:'국보 제156호',period:'백제 6세기',material:'금',size:'길이 8.8cm',desc:'왕비의 귀걸이. 주환과 드리개가 결합된 형태.'},
+  {grade:'보물',gradeClass:'treasure',img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',title:'무령왕 은제 팔찌',no:'보물 제2025호',period:'백제 6세기',material:'은',size:'직경 7.2cm',desc:'왕이 착용하던 은제 팔찌. 용무늬가 정교하게 새겨져 있다.'},
+  {grade:'보물',gradeClass:'treasure',img:'백제 금동신발.jpg',title:'백제 금동신발',no:'보물 제2026호',period:'백제 5~6세기',material:'금동',size:'길이 32cm',desc:'백제 귀족의 장례용 금동 신발. 전체에 투각 무늬가 있다.'},
+  {grade:'보물',gradeClass:'treasure',img:'images/무령왕비 은제 팔찌.jpg',title:'무령왕비 은제 팔찌',no:'보물 제2027호',period:'백제 6세기',material:'은',size:'직경 6.8cm',desc:'왕비가 착용한 은팔찌. 용문양과 명문이 새겨져 있다.'},
+  {grade:'보물',gradeClass:'treasure',img:'https://images.unsplash.com/photo-1531907700752-62799b2a3e84?w=600&q=80',title:'백제 청자 육이호',no:'보물 제2028호',period:'백제 4~5세기',material:'청자',size:'높이 23.5cm',desc:'중국에서 수입된 초기 청자. 백제의 대외 교류를 보여준다.'},
+  {grade:'일반',gradeClass:'registered',img:'images/무령왕릉 두침.jpg',title:'무령왕릉 두침',no:'등록문화재',period:'백제 6세기',material:'목칠',size:'길이 40cm',desc:'왕의 머리를 받치던 나무 베개. 붉은 칠이 남아 있다.'},
+  {grade:'일반',gradeClass:'registered',img:'images/공주 수촌리 금동관.jpg',title:'공주 수촌리 금동관',no:'등록문화재',period:'백제 4~5세기',material:'금동',size:'높이 25.3cm',desc:'충청남도 공주 수촌리 출토 금동관. 백제 초기 관모 양식.'},
+];
+
+function renderGrid(containerId, items){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  el.innerHTML = items.map((it,i)=>`
+    <div class="coll-card" onclick="openModal(${i})" style="cursor:pointer">
+      <div class="coll-card__thumb">
+        <img src="${it.img}" alt="${it.title}" loading="lazy"/>
+        <span class="coll-card__grade ${it.gradeClass}">${it.grade}</span>
+      </div>
+      <div class="coll-card__info">
+        <h4>${it.title}</h4>
+        <p>${it.no}</p>
+        <p class="period">${it.period}</p>
+      </div>
+    </div>`).join('');
+}
+
+renderGrid('collGrid', allItems);
+renderGrid('majorGrid', allItems.slice(0,8));
+
+function openModal(idx){
+  const it = allItems[idx];
+  document.getElementById('modalImg').src = it.img;
+  document.getElementById('modalImg').alt = it.title;
+  document.getElementById('modalGrade').textContent = it.grade;
+  document.getElementById('modalTitle').textContent = it.title;
+  document.getElementById('modalSub').textContent = it.no;
+  document.getElementById('modalDl').innerHTML = `
+    <dt>시대</dt><dd>${it.period}</dd>
+    <dt>재질</dt><dd>${it.material}</dd>
+    <dt>크기</dt><dd>${it.size}</dd>
+    <dt>설명</dt><dd>${it.desc}</dd>`;
+  document.getElementById('modalOverlay').classList.add('open');
+}
+function closeModal(e){ if(e.target===document.getElementById('modalOverlay')) document.getElementById('modalOverlay').classList.remove('open'); }
+
+function toggleRelated(){document.getElementById('relatedList')?.classList.toggle('open');}
+function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'});}
+window.addEventListener('scroll',()=>{document.getElementById('toTop')?.classList.toggle('visible',window.scrollY>400);});
+</script>
+</body>
+</html>

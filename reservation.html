@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>예약안내 - 국립공주박물관</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  <style>
+    .reserve-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:48px;}
+    .reserve-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:28px 24px;text-align:center;transition:all .3s;cursor:pointer;}
+    .reserve-card:hover,.reserve-card.selected{border-color:var(--gold);box-shadow:var(--shadow-md);background:var(--cream);}
+    .reserve-card__icon{font-size:40px;margin-bottom:14px;}
+    .reserve-card__title{font-family:var(--font-serif);font-size:17px;color:var(--dark);margin-bottom:8px;font-weight:700;}
+    .reserve-card__desc{font-size:13px;color:var(--text-muted);line-height:1.6;}
+    .reserve-form{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:36px;}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;}
+    .form-group{display:flex;flex-direction:column;gap:6px;}
+    .form-group.full{grid-column:1/-1;}
+    .form-group label{font-size:13px;font-weight:600;color:var(--dark);}
+    .form-group label span{color:var(--red);margin-left:2px;}
+    .form-group input,.form-group select,.form-group textarea{border:1px solid var(--border);border-radius:2px;padding:10px 14px;font-size:14px;font-family:inherit;color:var(--text);background:var(--cream);transition:border-color .2s;}
+    .form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--gold);}
+    .form-group textarea{min-height:100px;resize:vertical;}
+    .form-submit{width:100%;background:var(--gold);color:var(--dark);border:none;padding:14px;font-size:15px;font-weight:700;border-radius:2px;cursor:pointer;transition:background .3s;font-family:inherit;margin-top:8px;}
+    .form-submit:hover{background:var(--gold-dark);color:var(--white);}
+    .step-flow{display:flex;align-items:center;gap:0;margin-bottom:36px;}
+    .step{display:flex;flex-direction:column;align-items:center;gap:8px;flex:1;text-align:center;}
+    .step__num{width:44px;height:44px;border-radius:50%;background:var(--gold);color:var(--dark);font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:var(--font-serif);}
+    .step__label{font-size:12px;color:var(--text);font-weight:500;}
+    .step-arrow{color:var(--border);font-size:20px;flex-shrink:0;}
+    .notice-box{background:var(--cream-2);border:1px solid var(--border);border-left:4px solid var(--gold);border-radius:var(--radius);padding:20px 22px;margin-bottom:28px;}
+    .notice-box h5{font-size:14px;font-weight:700;color:var(--dark);margin-bottom:10px;}
+    .notice-box ul{list-style:disc;padding-left:18px;font-size:13px;color:var(--text-muted);line-height:2;}
+    @media(max-width:768px){.reserve-grid{grid-template-columns:1fr;} .form-grid{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+<div class="gov-bar"><div class="gov-bar__inner"><span class="gov-bar__flag-emoji">🇰🇷</span><span>이 누리집은 대한민국 공식 전자정부 누리집입니다.</span><button class="gov-bar__toggle" onclick="toggleGovInfo()">공식 누리집 확인방법 ▾</button></div><div class="gov-info" id="govInfo"></div></div>
+<div class="info-bar"><div class="info-bar__inner container"><ul class="info-bar__list"><li><strong>관람시간</strong><span>09:00 - 18:00</span></li><li><strong>휴관일</strong><span>매주 월요일</span></li><li><strong>문의전화</strong><span>041-850-6300</span></li></ul><a href="reservation.html" class="info-bar__reserve">통합예약 서비스 →</a></div></div>
+<header class="header" id="header">
+  <div class="header__inner container">
+    <h1 class="header__logo"><a href="index.html"><span class="logo-sub">문화체육관광부</span><span class="logo-main">국립공주박물관</span></a></h1>
+    <div class="header__utils"><a href="#" class="util-link">로그인</a><button class="all-menu-btn" onclick="toggleAllMenu()"><span class="hamburger"></span><span class="hamburger"></span><span class="hamburger"></span><span>전체메뉴</span></button></div>
+  </div>
+  <nav class="gnb"><div class="container"><ul class="gnb__list">
+    <li class="gnb__item"><a href="visit.html" class="gnb__link" style="color:var(--gold-light)">관람정보</a></li>
+    <li class="gnb__item"><a href="exhibit.html" class="gnb__link">전시</a></li>
+    <li class="gnb__item"><a href="education.html" class="gnb__link">교육/행사</a></li>
+    <li class="gnb__item"><a href="collection.html" class="gnb__link">유물/학습</a></li>
+    <li class="gnb__item"><a href="news.html" class="gnb__link">소식/참여</a></li>
+  </ul></div></nav>
+</header>
+<div class="all-menu-overlay" id="allMenuOverlay"><div class="all-menu"><div class="all-menu__header"><h2>전체메뉴</h2><button class="all-menu__close" onclick="toggleAllMenu()">✕</button></div><div class="all-menu__body"><ul class="all-menu__cats"><li><strong>관람정보</strong><ul><li><a href="visit.html">이용안내</a></li><li><a href="reservation.html">예약안내</a></li><li><a href="about.html">박물관소개</a></li><li><a href="direction.html">오시는길</a></li></ul></li><li><strong>전시</strong><ul><li><a href="exhibit.html">전시안내</a></li></ul></li><li><strong>교육/행사</strong><ul><li><a href="education.html">교육프로그램</a></li></ul></li><li><strong>유물/학습</strong><ul><li><a href="collection.html">소장품</a></li></ul></li><li><strong>소식/참여</strong><ul><li><a href="news.html">소식</a></li></ul></li></ul></div></div></div>
+
+<section class="subpage-hero">
+  <div class="subpage-hero__bg"><img src="https://images.unsplash.com/photo-1434030216411-0b793f4b6379?w=1600&q=80" alt="예약안내"/><div class="subpage-hero__overlay"></div></div>
+  <div class="subpage-hero__content container">
+    <div class="subpage-breadcrumb"><a href="index.html">홈</a> › <a href="visit.html">관람정보</a> › <span>예약안내</span></div>
+    <h2 class="subpage-hero__title">통합예약 서비스</h2>
+    <p class="subpage-hero__sub">교육 프로그램 및 단체 관람을 온라인으로 예약하세요</p>
+  </div>
+</section>
+
+<main class="subpage-content">
+<div class="container">
+
+  <section class="sub-section">
+    <h3 class="sub-section-title">예약 유형 선택</h3>
+    <p class="sub-section-sub">원하시는 예약 유형을 선택해 주세요</p>
+    <div class="reserve-grid">
+      <div class="reserve-card selected" onclick="selectType(this)">
+        <div class="reserve-card__icon">📚</div>
+        <div class="reserve-card__title">교육 프로그램</div>
+        <div class="reserve-card__desc">어린이 체험교실, 가족 프로그램, 성인 강좌 등 교육 프로그램 예약</div>
+      </div>
+      <div class="reserve-card" onclick="selectType(this)">
+        <div class="reserve-card__icon">🏫</div>
+        <div class="reserve-card__title">단체 관람</div>
+        <div class="reserve-card__desc">학교·기관 단체 관람 및 해설사 해설 신청 (20인 이상)</div>
+      </div>
+      <div class="reserve-card" onclick="selectType(this)">
+        <div class="reserve-card__icon">🎭</div>
+        <div class="reserve-card__title">문화행사</div>
+        <div class="reserve-card__desc">야간 행사, 문화가 있는 날, 특별 이벤트 등 행사 예약</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sub-section">
+    <h3 class="sub-section-title">예약 절차</h3>
+    <div class="step-flow">
+      <div class="step"><div class="step__num">1</div><div class="step__label">유형 선택</div></div>
+      <div class="step-arrow">›</div>
+      <div class="step"><div class="step__num">2</div><div class="step__label">프로그램 선택</div></div>
+      <div class="step-arrow">›</div>
+      <div class="step"><div class="step__num">3</div><div class="step__label">날짜·인원 입력</div></div>
+      <div class="step-arrow">›</div>
+      <div class="step"><div class="step__num">4</div><div class="step__label">신청자 정보</div></div>
+      <div class="step-arrow">›</div>
+      <div class="step"><div class="step__num">5</div><div class="step__label">예약 완료</div></div>
+    </div>
+    <div class="notice-box">
+      <h5>📋 예약 전 확인 사항</h5>
+      <ul>
+        <li>교육 프로그램은 최소 3일 전, 단체 관람은 최소 2주 전까지 신청해 주세요.</li>
+        <li>취소 및 변경은 예약일 2일 전까지 가능합니다. 이후 취소 시 다음 신청이 제한될 수 있습니다.</li>
+        <li>예약 인원 미달 시 프로그램이 취소될 수 있으며, 이 경우 사전 안내해 드립니다.</li>
+        <li>일부 체험 프로그램은 연령 제한이 있으므로 상세 내용을 확인하신 후 신청해 주세요.</li>
+        <li>문의: 교육팀 041-850-6355 (평일 09:00~18:00)</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sub-section">
+    <h3 class="sub-section-title">예약 신청서</h3>
+    <div class="reserve-form">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>프로그램 선택<span>*</span></label>
+          <select>
+            <option value="">선택해 주세요</option>
+            <option>여름방학 어린이 고고학 체험교실 (7월)</option>
+            <option>여름방학 어린이 고고학 체험교실 (8월)</option>
+            <option>백제 토기 만들기 — 가족 체험 (6월 토)</option>
+            <option>백제 토기 만들기 — 가족 체험 (7월 토)</option>
+            <option>박물관 아카데미 — 백제사 심화 강좌</option>
+            <option>단체 관람 신청 (20인 이상)</option>
+            <option>무령왕릉 사마의 여름 밤 (7월 19일)</option>
+            <option>무령왕릉 사마의 여름 밤 (7월 20일)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>희망 날짜<span>*</span></label>
+          <input type="date"/>
+        </div>
+        <div class="form-group">
+          <label>신청자 성명<span>*</span></label>
+          <input type="text" placeholder="성명을 입력하세요"/>
+        </div>
+        <div class="form-group">
+          <label>연락처<span>*</span></label>
+          <input type="tel" placeholder="010-0000-0000"/>
+        </div>
+        <div class="form-group">
+          <label>이메일</label>
+          <input type="email" placeholder="example@email.com"/>
+        </div>
+        <div class="form-group">
+          <label>신청 인원<span>*</span></label>
+          <input type="number" placeholder="인원 수" min="1"/>
+        </div>
+        <div class="form-group">
+          <label>참가자 연령대</label>
+          <select>
+            <option>선택해 주세요</option>
+            <option>유아(7세 미만)</option>
+            <option>초등 저학년(1~3학년)</option>
+            <option>초등 고학년(4~6학년)</option>
+            <option>중학생</option>
+            <option>고등학생</option>
+            <option>성인</option>
+            <option>혼합(가족)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>방문 경로</label>
+          <select>
+            <option>선택해 주세요</option>
+            <option>홈페이지</option>
+            <option>SNS(인스타그램·페이스북 등)</option>
+            <option>네이버 블로그</option>
+            <option>지인 추천</option>
+            <option>학교·기관 안내</option>
+            <option>기타</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label>문의 사항</label>
+          <textarea placeholder="문의 사항이나 특이 사항이 있으시면 입력해 주세요."></textarea>
+        </div>
+      </div>
+      <div style="background:var(--cream-2);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;margin-bottom:16px;font-size:13px;color:var(--text-muted);">
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;"><input type="checkbox" style="width:16px;height:16px;accent-color:var(--gold)"/> 개인정보 수집·이용에 동의합니다. <a href="#" style="color:var(--gold-dark);text-decoration:underline;">[상세 보기]</a></label>
+      </div>
+      <button class="form-submit" onclick="alert('예약 신청이 완료되었습니다.\n담당자 확인 후 연락드리겠습니다.\n감사합니다.')">예약 신청하기</button>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<footer class="footer"><div class="footer__bottom"><div class="container"><p class="footer__copy">COPYRIGHT 2025 GONGJU NATIONAL MUSEUM. ALL RIGHTS RESERVED.</p></div></div><button class="to-top" id="toTop" onclick="scrollToTop()">▲</button></footer>
+<script src="script.js"></script>
+<script>
+function selectType(el){document.querySelectorAll('.reserve-card').forEach(c=>c.classList.remove('selected'));el.classList.add('selected');}
+function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'});}
+window.addEventListener('scroll',()=>{document.getElementById('toTop')?.classList.toggle('visible',window.scrollY>400);});
+</script>
+</body>
+</html>

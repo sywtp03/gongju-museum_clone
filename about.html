@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>박물관소개 - 국립공주박물관</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  <style>
+    .about-intro{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-bottom:60px;}
+    .about-intro__img{border-radius:var(--radius);overflow:hidden;aspect-ratio:4/3;}
+    .about-intro__img img{width:100%;height:100%;object-fit:cover;}
+    .about-intro__text h3{font-family:var(--font-serif);font-size:26px;color:var(--dark);margin-bottom:16px;line-height:1.35;}
+    .about-intro__text p{font-size:15px;color:var(--text-muted);line-height:1.9;margin-bottom:14px;}
+    .stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-bottom:60px;}
+    .stat-item{background:var(--dark);border-radius:var(--radius);padding:28px 20px;text-align:center;}
+    .stat-item__num{font-family:var(--font-serif);font-size:36px;color:var(--gold);font-weight:700;margin-bottom:6px;}
+    .stat-item__label{font-size:13px;color:rgba(255,255,255,.6);}
+    .timeline{position:relative;padding-left:32px;}
+    .timeline::before{content:'';position:absolute;left:6px;top:0;bottom:0;width:2px;background:var(--border);}
+    .tl-item{position:relative;margin-bottom:28px;padding-left:24px;}
+    .tl-item::before{content:'';position:absolute;left:-26px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid var(--white);box-shadow:0 0 0 2px var(--gold);}
+    .tl-year{font-family:var(--font-serif);font-size:15px;color:var(--gold-dark);font-weight:700;margin-bottom:4px;}
+    .tl-desc{font-size:14px;color:var(--text);line-height:1.65;}
+    .mission-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+    .mission-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:28px 22px;border-top:3px solid var(--gold);}
+    .mission-card__icon{font-size:36px;margin-bottom:14px;}
+    .mission-card__title{font-family:var(--font-serif);font-size:16px;color:var(--dark);font-weight:700;margin-bottom:10px;}
+    .mission-card__text{font-size:13px;color:var(--text-muted);line-height:1.7;}
+    @media(max-width:768px){.about-intro{grid-template-columns:1fr;} .stat-row{grid-template-columns:repeat(2,1fr);} .mission-grid{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+<div class="gov-bar"><div class="gov-bar__inner"><span class="gov-bar__flag-emoji">🇰🇷</span><span>이 누리집은 대한민국 공식 전자정부 누리집입니다.</span></div></div>
+<div class="info-bar"><div class="info-bar__inner container"><ul class="info-bar__list"><li><strong>관람시간</strong><span>09:00 - 18:00</span></li><li><strong>휴관일</strong><span>매주 월요일</span></li><li><strong>문의전화</strong><span>041-850-6300</span></li></ul><a href="reservation.html" class="info-bar__reserve">통합예약 서비스 →</a></div></div>
+<header class="header" id="header">
+  <div class="header__inner container">
+    <h1 class="header__logo"><a href="index.html"><span class="logo-sub">문화체육관광부</span><span class="logo-main">국립공주박물관</span></a></h1>
+    <div class="header__utils"><a href="#" class="util-link">로그인</a><button class="all-menu-btn" onclick="toggleAllMenu()"><span class="hamburger"></span><span class="hamburger"></span><span class="hamburger"></span><span>전체메뉴</span></button></div>
+  </div>
+  <nav class="gnb"><div class="container"><ul class="gnb__list">
+    <li class="gnb__item"><a href="visit.html" class="gnb__link" style="color:var(--gold-light)">관람정보</a></li>
+    <li class="gnb__item"><a href="exhibit.html" class="gnb__link">전시</a></li>
+    <li class="gnb__item"><a href="education.html" class="gnb__link">교육/행사</a></li>
+    <li class="gnb__item"><a href="collection.html" class="gnb__link">유물/학습</a></li>
+    <li class="gnb__item"><a href="news.html" class="gnb__link">소식/참여</a></li>
+  </ul></div></nav>
+</header>
+<div class="all-menu-overlay" id="allMenuOverlay"><div class="all-menu"><div class="all-menu__header"><h2>전체메뉴</h2><button class="all-menu__close" onclick="toggleAllMenu()">✕</button></div><div class="all-menu__body"><ul class="all-menu__cats"><li><strong>관람정보</strong><ul><li><a href="visit.html">이용안내</a></li><li><a href="reservation.html">예약안내</a></li><li><a href="about.html">박물관소개</a></li><li><a href="direction.html">오시는길</a></li></ul></li><li><strong>전시</strong><ul><li><a href="exhibit.html">전시</a></li></ul></li><li><strong>교육/행사</strong><ul><li><a href="education.html">교육프로그램</a></li></ul></li><li><strong>유물/학습</strong><ul><li><a href="collection.html">소장품</a></li></ul></li><li><strong>소식/참여</strong><ul><li><a href="news.html">소식</a></li></ul></li></ul></div></div></div>
+
+<section class="subpage-hero">
+  <div class="subpage-hero__bg"><img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1600&q=80" alt="박물관소개"/><div class="subpage-hero__overlay"></div></div>
+  <div class="subpage-hero__content container">
+    <div class="subpage-breadcrumb"><a href="index.html">홈</a> › <a href="visit.html">관람정보</a> › <span>박물관소개</span></div>
+    <h2 class="subpage-hero__title">박물관소개</h2>
+    <p class="subpage-hero__sub">백제 문화유산의 수호자, 국립공주박물관</p>
+  </div>
+</section>
+
+<main class="subpage-content">
+<div class="container">
+
+  <section class="sub-section">
+    <h3 class="sub-section-title">인사말</h3>
+    <div class="about-intro">
+      <div class="about-intro__img"><img src="https://images.unsplash.com/photo-1608472378547-94766e2a1acd?w=900&q=80" alt="박물관 전시실" loading="lazy"/></div>
+      <div class="about-intro__text">
+        <h3>백제의 찬란한 문화유산과<br/>함께하는 국립공주박물관</h3>
+        <p>국립공주박물관은 1940년 개관 이래 백제 문화의 중심지 공주를 기반으로, 충청남도 지역의 역사와 문화유산을 연구·보존·전시하는 역할을 담당해 왔습니다.</p>
+        <p>특히 1971년 무령왕릉 발굴을 계기로 국제적 주목을 받았으며, 국보 19점을 포함한 4만여 점의 귀중한 유물을 소장하고 있습니다. 박물관은 단순한 유물 전시를 넘어, 살아있는 교육의 장이자 문화 교류의 공간으로 기능하고 있습니다.</p>
+        <p>앞으로도 백제 문화유산의 체계적 연구와 보존, 창의적인 전시 및 교육 프로그램 개발을 통해 국내외 관람객에게 사랑받는 박물관이 되겠습니다.</p>
+        <p style="color:var(--gold-dark);font-family:var(--font-serif);font-size:15px;font-weight:600;">국립공주박물관장 드림</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sub-section">
+    <h3 class="sub-section-title">주요 현황</h3>
+    <div class="stat-row">
+      <div class="stat-item"><div class="stat-item__num">4만+</div><div class="stat-item__label">소장 유물 수</div></div>
+      <div class="stat-item"><div class="stat-item__num">19점</div><div class="stat-item__label">국보 지정 유물</div></div>
+      <div class="stat-item"><div class="stat-item__num">1940</div><div class="stat-item__label">개관 연도</div></div>
+      <div class="stat-item"><div class="stat-item__num">30만+</div><div class="stat-item__label">연간 관람객 수</div></div>
+    </div>
+  </section>
+
+  <section class="sub-section">
+    <h3 class="sub-section-title">미션 및 비전</h3>
+    <div class="mission-grid" style="margin-bottom:40px">
+      <div class="mission-card"><div class="mission-card__icon">🏛</div><div class="mission-card__title">보존 (Preservation)</div><div class="mission-card__text">백제 문화유산을 과학적으로 보존하고 미래 세대에게 온전히 전달합니다. 최신 보존 기술을 도입하여 유물의 영구적 보전을 추구합니다.</div></div>
+      <div class="mission-card"><div class="mission-card__icon">🔬</div><div class="mission-card__title">연구 (Research)</div><div class="mission-card__text">백제사와 충청 지역 역사·문화에 관한 심층적 학술 연구를 수행하고, 국내외 연구 기관과의 협력을 강화합니다.</div></div>
+      <div class="mission-card"><div class="mission-card__icon">🌱</div><div class="mission-card__title">교육 (Education)</div><div class="mission-card__text">다양한 연령대와 계층을 위한 창의적 교육 프로그램을 개발·운영하여, 역사문화 향유 기회를 확대합니다.</div></div>
+    </div>
+    <div style="background:var(--dark);border-radius:var(--radius);padding:36px;text-align:center;">
+      <p style="font-family:var(--font-serif);font-size:13px;color:var(--gold-light);letter-spacing:.15em;margin-bottom:12px;">VISION 2030</p>
+      <p style="font-family:var(--font-serif);font-size:22px;color:var(--white);line-height:1.5;">"백제 문화의 세계화를 선도하는<br/>아시아 대표 고대 문화 박물관"</p>
+    </div>
+  </section>
+
+  <section class="sub-section">
+    <h3 class="sub-section-title">연혁</h3>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-year">1940</div><div class="tl-desc">공주사적현창회 설립 및 박물관 전신 운영 시작</div></div>
+      <div class="tl-item"><div class="tl-year">1946</div><div class="tl-desc">국립박물관 공주분관으로 개편</div></div>
+      <div class="tl-item"><div class="tl-year">1971</div><div class="tl-desc">무령왕릉 발굴 — 국보 17점 포함 2,906점 출토, 세계적 주목</div></div>
+      <div class="tl-item"><div class="tl-year">1975</div><div class="tl-desc">국립공주박물관으로 명칭 변경 및 독립 기관 승격</div></div>
+      <div class="tl-item"><div class="tl-year">2004</div><div class="tl-desc">현 위치(웅진동) 신관 개관 — 웅진백제실, 충남역사문화실 운영</div></div>
+      <div class="tl-item"><div class="tl-year">2015</div><div class="tl-desc">공주 역사유적지구 유네스코 세계문화유산 등재 (공산성·왕릉원)</div></div>
+      <div class="tl-item"><div class="tl-year">2021</div><div class="tl-desc">충청권역 수장고 개관 및 무령왕릉 발굴 50주년 기념사업 추진</div></div>
+      <div class="tl-item"><div class="tl-year">2023</div><div class="tl-desc">어린이 체험실 리모델링 개관 — 디지털 체험 기술 도입</div></div>
+      <div class="tl-item"><div class="tl-year">2025</div><div class="tl-desc">무령왕릉 발굴 54주년 특별전 및 유물 3D 디지털화 완료</div></div>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<footer class="footer"><div class="footer__bottom"><div class="container"><p class="footer__copy">COPYRIGHT 2025 GONGJU NATIONAL MUSEUM. ALL RIGHTS RESERVED.</p></div></div><button class="to-top" id="toTop" onclick="scrollToTop()">▲</button></footer>
+<script src="script.js"></script>
+<script>function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'});}window.addEventListener('scroll',()=>{document.getElementById('toTop')?.classList.toggle('visible',window.scrollY>400);});</script>
+</body>
+</html>

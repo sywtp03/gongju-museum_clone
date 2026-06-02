@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>소식/참여 - 국립공주박물관</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  <style>
+    .news-tabs{display:flex;gap:0;border-bottom:2px solid var(--border);margin-bottom:28px;}
+    .news-tab{padding:11px 26px;font-size:14px;font-weight:500;color:var(--text-muted);border-bottom:2px solid transparent;margin-bottom:-2px;cursor:pointer;transition:all .25s;}
+    .news-tab.active,.news-tab:hover{color:var(--gold-dark);border-bottom-color:var(--gold);}
+    .notice-table{width:100%;border-collapse:collapse;font-size:14px;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+    .notice-table thead tr{background:var(--dark-2);}
+    .notice-table thead th{padding:14px 16px;color:var(--gold-light);font-size:12px;font-weight:600;letter-spacing:.04em;text-align:center;}
+    .notice-table thead th:nth-child(2){text-align:left;}
+    .notice-table tbody tr{border-bottom:1px solid var(--border);transition:background .2s;}
+    .notice-table tbody tr:hover{background:var(--cream);}
+    .notice-table tbody td{padding:13px 16px;color:var(--text);text-align:center;}
+    .notice-table tbody td:nth-child(2){text-align:left;font-weight:500;}
+    .notice-table tbody td:nth-child(2) a:hover{color:var(--gold-dark);}
+    .badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:1px;letter-spacing:.05em;}
+    .badge-notice{background:#f8e8e8;color:#7a1a1a;}
+    .badge-press{background:#f8f4e8;color:#7a5a1a;}
+    .badge-recruit{background:#e8f4e8;color:#2d6a2d;}
+    .badge-event{background:#e8eef8;color:#1a3a7a;}
+    .badge-new{background:var(--gold);color:var(--dark);margin-left:6px;}
+    .new-badge::after{content:'N';display:inline-block;background:var(--gold);color:var(--dark);font-size:9px;font-weight:900;padding:1px 5px;border-radius:1px;margin-left:6px;vertical-align:middle;}
+    .press-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+    .press-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .3s;}
+    .press-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:var(--gold);}
+    .press-card__img{aspect-ratio:16/9;overflow:hidden;}
+    .press-card__img img{width:100%;height:100%;object-fit:cover;transition:transform .6s;}
+    .press-card:hover .press-card__img img{transform:scale(1.05);}
+    .press-card__body{padding:18px 20px;}
+    .press-card__date{font-size:11px;color:var(--text-muted);margin-bottom:7px;}
+    .press-card__title{font-family:var(--font-serif);font-size:15px;color:var(--dark);margin-bottom:8px;line-height:1.45;}
+    .press-card__desc{font-size:12px;color:var(--text-muted);line-height:1.6;}
+    .press-card__link{display:inline-block;margin-top:12px;font-size:12px;color:var(--gold-dark);font-weight:600;}
+    .review-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+    .review-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:22px 24px;transition:all .3s;}
+    .review-card:hover{border-color:var(--gold);box-shadow:var(--shadow-sm);}
+    .review-card__stars{color:var(--gold);font-size:16px;margin-bottom:8px;}
+    .review-card__text{font-size:14px;color:var(--text);line-height:1.7;margin-bottom:12px;}
+    .review-card__author{font-size:12px;color:var(--text-muted);display:flex;justify-content:space-between;}
+    .review-write{background:var(--dark);border-radius:var(--radius);padding:36px;text-align:center;margin-top:24px;}
+    .review-write h4{font-family:var(--font-serif);font-size:20px;color:var(--gold-light);margin-bottom:8px;}
+    .review-write p{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:18px;}
+    .btn-gold{display:inline-block;background:var(--gold);color:var(--dark);padding:11px 28px;font-size:14px;font-weight:700;border-radius:2px;transition:all .3s;}
+    .btn-gold:hover{background:var(--gold-light);}
+    .recruit-item{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);display:flex;align-items:center;gap:20px;padding:20px 24px;margin-bottom:12px;transition:all .3s;}
+    .recruit-item:hover{border-color:var(--gold);box-shadow:var(--shadow-sm);}
+    .recruit-item__status{min-width:60px;text-align:center;}
+    .status-open{display:inline-block;background:#e8f4e8;color:#2d6a2d;font-size:11px;font-weight:700;padding:4px 10px;border-radius:1px;}
+    .status-closed{display:inline-block;background:#eee;color:#888;font-size:11px;font-weight:700;padding:4px 10px;border-radius:1px;}
+    .recruit-item__title{flex:1;font-size:15px;font-weight:600;color:var(--dark);}
+    .recruit-item__meta{font-size:12px;color:var(--text-muted);}
+    .tab-panel{display:none;} .tab-panel.active{display:block;}
+    @media(max-width:768px){.press-grid{grid-template-columns:1fr;} .review-grid{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+
+<div class="gov-bar"><div class="gov-bar__inner"><span class="gov-bar__flag-emoji">🇰🇷</span><span>이 누리집은 대한민국 공식 전자정부 누리집입니다.</span><button class="gov-bar__toggle" onclick="toggleGovInfo()">공식 누리집 확인방법 ▾</button></div><div class="gov-info" id="govInfo"></div></div>
+<div class="info-bar"><div class="info-bar__inner container"><ul class="info-bar__list"><li><strong>관람시간</strong><span>09:00 - 18:00</span></li><li><strong>휴관일</strong><span>매주 월요일</span></li><li><strong>문의전화</strong><span>041-850-6300</span></li></ul><a href="reservation.html" class="info-bar__reserve">통합예약 서비스 →</a></div></div>
+<header class="header" id="header">
+  <div class="header__inner container">
+    <h1 class="header__logo"><a href="index.html"><span class="logo-sub">문화체육관광부</span><span class="logo-main">국립공주박물관</span></a></h1>
+    <div class="header__utils"><a href="#" class="util-link">로그인</a><div class="lang-select"><button class="lang-select__btn" onclick="toggleLang()">KOR ▾</button><ul class="lang-select__list" id="langList"><li class="active"><a href="#">KOR</a></li><li><a href="#">ENG</a></li><li><a href="#">CHN</a></li><li><a href="#">JPN</a></li></ul></div><button class="all-menu-btn" onclick="toggleAllMenu()"><span class="hamburger"></span><span class="hamburger"></span><span class="hamburger"></span><span>전체메뉴</span></button></div>
+  </div>
+  <nav class="gnb"><div class="container"><ul class="gnb__list">
+    <li class="gnb__item"><a href="visit.html" class="gnb__link">관람정보</a></li>
+    <li class="gnb__item"><a href="exhibit.html" class="gnb__link">전시</a></li>
+    <li class="gnb__item"><a href="education.html" class="gnb__link">교육/행사</a></li>
+    <li class="gnb__item"><a href="collection.html" class="gnb__link">유물/학습</a></li>
+    <li class="gnb__item"><a href="news.html" class="gnb__link" style="color:var(--gold-light)">소식/참여</a></li>
+  </ul></div></nav>
+</header>
+<div class="all-menu-overlay" id="allMenuOverlay"><div class="all-menu"><div class="all-menu__header"><h2>전체메뉴</h2><button class="all-menu__close" onclick="toggleAllMenu()">✕</button></div><div class="all-menu__body"><ul class="all-menu__cats"><li><strong>관람정보</strong><ul><li><a href="visit.html">이용안내</a></li><li><a href="reservation.html">예약안내</a></li><li><a href="about.html">박물관소개</a></li><li><a href="direction.html">오시는길</a></li></ul></li><li><strong>전시</strong><ul><li><a href="exhibit.html">전시안내</a></li></ul></li><li><strong>교육/행사</strong><ul><li><a href="education.html">교육프로그램</a></li></ul></li><li><strong>유물/학습</strong><ul><li><a href="collection.html">소장품</a></li></ul></li><li><strong>소식/참여</strong><ul><li><a href="news.html">알림·소식</a></li><li><a href="news.html#press">보도자료</a></li><li><a href="news.html#recruit">채용</a></li><li><a href="news.html#review">관람후기</a></li></ul></li></ul></div></div></div>
+
+<section class="subpage-hero">
+  <div class="subpage-hero__bg"><img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1600&q=80" alt="소식/참여"/><div class="subpage-hero__overlay" style="background:linear-gradient(90deg,rgba(10,20,40,.88) 35%,rgba(10,20,40,.25) 100%)"></div></div>
+  <div class="subpage-hero__content container">
+    <div class="subpage-breadcrumb"><a href="index.html">홈</a> › <span>소식/참여</span></div>
+    <h2 class="subpage-hero__title">소식/참여</h2>
+    <p class="subpage-hero__sub">국립공주박물관의 새로운 소식을 전합니다</p>
+  </div>
+</section>
+
+<main class="subpage-content">
+<div class="container">
+
+  <!-- ── 알림·소식 ── -->
+  <section class="sub-section" id="notice">
+    <h3 class="sub-section-title">알림·소식</h3>
+    <div class="news-tabs">
+      <button class="news-tab active" onclick="switchNewsTab(this,'tab-notice')">전체</button>
+      <button class="news-tab" onclick="switchNewsTab(this,'tab-notice-only')">공지</button>
+      <button class="news-tab" onclick="switchNewsTab(this,'tab-event-only')">행사</button>
+    </div>
+    <div class="tab-panel active" id="tab-notice">
+      <table class="notice-table">
+        <thead><tr><th style="width:60px">번호</th><th>제목</th><th style="width:90px">구분</th><th style="width:110px">날짜</th></tr></thead>
+        <tbody>
+          <tr><td>15</td><td><a href="#" class="new-badge">2025 하반기 박물관 연장개관 안내</a></td><td><span class="badge badge-notice">공지</span></td><td>2025.06.10</td></tr>
+          <tr><td>14</td><td><a href="#">박물관 야외 조각공원 임시 통제 안내</a></td><td><span class="badge badge-notice">공지</span></td><td>2025.05.28</td></tr>
+          <tr><td>13</td><td><a href="#">문화가 있는 날 행사 안내 (6월)</a></td><td><span class="badge badge-event">행사</span></td><td>2025.05.20</td></tr>
+          <tr><td>12</td><td><a href="#">무령왕릉 사마의 여름 밤 행사 사전 예약 오픈</a></td><td><span class="badge badge-event">행사</span></td><td>2025.05.15</td></tr>
+          <tr><td>11</td><td><a href="#">2025 여름방학 어린이 체험 교실 신청 안내</a></td><td><span class="badge badge-notice">공지</span></td><td>2025.05.10</td></tr>
+          <tr><td>10</td><td><a href="#">박물관 주차장 공사 관련 이용 안내</a></td><td><span class="badge badge-notice">공지</span></td><td>2025.04.29</td></tr>
+          <tr><td>9</td><td><a href="#">2025 어린이날 특별 행사 안내</a></td><td><span class="badge badge-event">행사</span></td><td>2025.04.20</td></tr>
+          <tr><td>8</td><td><a href="#">4월 문화가 있는 날 행사 안내</a></td><td><span class="badge badge-event">행사</span></td><td>2025.04.02</td></tr>
+        </tbody>
+      </table>
+      <div class="pagination" style="margin-top:24px;display:flex;justify-content:center;gap:6px;">
+        <button class="page-btn active" style="width:36px;height:36px;border:1px solid var(--gold);background:var(--gold);color:var(--dark);border-radius:2px;font-size:13px;">1</button>
+        <button class="page-btn" style="width:36px;height:36px;border:1px solid var(--border);background:transparent;border-radius:2px;font-size:13px;cursor:pointer;">2</button>
+        <button class="page-btn" style="width:36px;height:36px;border:1px solid var(--border);background:transparent;border-radius:2px;font-size:13px;cursor:pointer;">3</button>
+        <button class="page-btn" style="width:36px;height:36px;border:1px solid var(--border);background:transparent;border-radius:2px;font-size:13px;cursor:pointer;">›</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 보도자료 ── -->
+  <section class="sub-section" id="press">
+    <h3 class="sub-section-title">보도자료</h3>
+    <p class="sub-section-sub">언론에 배포된 박물관 주요 보도자료를 확인하세요</p>
+    <div class="press-grid">
+      <div class="press-card">
+        <div class="press-card__img"><img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=700&q=80" alt="보도1" loading="lazy"/></div>
+        <div class="press-card__body">
+          <p class="press-card__date">2025.05.10</p>
+          <h4 class="press-card__title">무령왕릉 1호 금제 관장식 3D 스캔 복원 성공 — 국보급 유물 디지털화 완료</h4>
+          <p class="press-card__desc">국립공주박물관이 무령왕 금제 관장식의 3D 스캔 데이터를 확보하고 디지털 복원 모델을 공개했다.</p>
+          <a href="#" class="press-card__link">원문 보기 →</a>
+        </div>
+      </div>
+      <div class="press-card">
+        <div class="press-card__img"><img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=700&q=80" alt="보도2" loading="lazy"/></div>
+        <div class="press-card__body">
+          <p class="press-card__date">2025.04.01</p>
+          <h4 class="press-card__title">국립공주박물관 웹소식지 '공주의 다이어리' 제24호 발간</h4>
+          <p class="press-card__desc">무령왕릉 발굴 50주년을 조명하는 특집 기사 및 봄철 전시 안내를 담은 웹소식지가 발간되었다.</p>
+          <a href="#" class="press-card__link">원문 보기 →</a>
+        </div>
+      </div>
+      <div class="press-card">
+        <div class="press-card__img"><img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=700&q=80" alt="보도3" loading="lazy"/></div>
+        <div class="press-card__body">
+          <p class="press-card__date">2025.03.15</p>
+          <h4 class="press-card__title">국립공주박물관, 어린이 체험실 리모델링 완료 — 새단장 개관</h4>
+          <p class="press-card__desc">웅진백제 어린이 체험실이 디지털 기술을 접목한 새로운 체험 공간으로 재개관하였다.</p>
+          <a href="#" class="press-card__link">원문 보기 →</a>
+        </div>
+      </div>
+      <div class="press-card">
+        <div class="press-card__img"><img src="https://images.unsplash.com/photo-1560707303-4e980ce876ad?w=700&q=80" alt="보도4" loading="lazy"/></div>
+        <div class="press-card__body">
+          <p class="press-card__date">2025.02.20</p>
+          <h4 class="press-card__title">무령왕릉 발굴 50주년 기념 특별전 준비 현황 공개</h4>
+          <p class="press-card__desc">4월 개막 예정인 무령왕릉 50주년 특별전에 대한 상세 계획을 언론에 공개했다.</p>
+          <a href="#" class="press-card__link">원문 보기 →</a>
+        </div>
+      </div>
+      <div class="press-card">
+        <div class="press-card__img"><img src="https://images.unsplash.com/photo-1551029506-0807df4e2031?w=700&q=80" alt="보도5" loading="lazy"/></div>
+        <div class="press-card__body">
+          <p class="press-card__date">2025.01.08</p>
+          <h4 class="press-card__title">국립공주박물관 2025 연간 전시·교육 계획 발표</h4>
+          <p class="press-card__desc">올해 추진할 특별전, 상설전 보완, 교육 프로그램 등 주요 사업 계획을 발표했다.</p>
+          <a href="#" class="press-card__link">원문 보기 →</a>
+        </div>
+      </div>
+      <div class="press-card">
+        <div class="press-card__img"><img src="https://images.unsplash.com/photo-1607748862156-7c548e7e98f4?w=700&q=80" alt="보도6" loading="lazy"/></div>
+        <div class="press-card__body">
+          <p class="press-card__date">2024.12.10</p>
+          <h4 class="press-card__title">국립공주박물관 충청권역 수장고 수장 유물 5만 점 돌파</h4>
+          <p class="press-card__desc">충청권역 수장고 보관 유물이 5만 점을 넘어섰으며 새 보존 시스템이 도입되었다.</p>
+          <a href="#" class="press-card__link">원문 보기 →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 채용 ── -->
+  <section class="sub-section" id="recruit">
+    <h3 class="sub-section-title">채용공고</h3>
+    <p class="sub-section-sub">국립공주박물관 채용 관련 공고입니다</p>
+    <div class="recruit-item">
+      <div class="recruit-item__status"><span class="status-open">모집중</span></div>
+      <div class="recruit-item__title">2025 하반기 임시직 학예연구직 채용 공고<span class="badge badge-new" style="font-size:10px;padding:2px 6px;margin-left:8px;vertical-align:middle;">NEW</span></div>
+      <div class="recruit-item__meta">원서접수: 2025.06.01 ~ 2025.06.20 | 분야: 고고학·미술사학</div>
+      <a href="#" style="border:1px solid var(--gold);color:var(--gold-dark);padding:7px 16px;font-size:12px;border-radius:2px;white-space:nowrap;transition:all .3s;" onmouseover="this.style.background='var(--gold)';this.style.color='var(--dark)'" onmouseout="this.style.background='';this.style.color='var(--gold-dark)'">공고 보기</a>
+    </div>
+    <div class="recruit-item">
+      <div class="recruit-item__status"><span class="status-open">모집중</span></div>
+      <div class="recruit-item__title">박물관 도슨트(전시해설사) 자원봉사 모집</div>
+      <div class="recruit-item__meta">상시 모집 | 분야: 전시 해설, 교육 보조</div>
+      <a href="#" style="border:1px solid var(--gold);color:var(--gold-dark);padding:7px 16px;font-size:12px;border-radius:2px;white-space:nowrap;transition:all .3s;" onmouseover="this.style.background='var(--gold)';this.style.color='var(--dark)'" onmouseout="this.style.background='';this.style.color='var(--gold-dark)'">공고 보기</a>
+    </div>
+    <div class="recruit-item">
+      <div class="recruit-item__status"><span class="status-closed">마감</span></div>
+      <div class="recruit-item__title">2025 상반기 기간제 행정직 채용</div>
+      <div class="recruit-item__meta">원서접수: 2025.01.06 ~ 2025.01.17 | 분야: 행정 일반</div>
+      <a href="#" style="border:1px solid var(--border);color:var(--text-muted);padding:7px 16px;font-size:12px;border-radius:2px;white-space:nowrap;">공고 보기</a>
+    </div>
+    <div class="recruit-item">
+      <div class="recruit-item__status"><span class="status-closed">마감</span></div>
+      <div class="recruit-item__title">박물관 야외안내 아르바이트 모집</div>
+      <div class="recruit-item__meta">원서접수: 2024.12.09 ~ 2024.12.20 | 분야: 안내·보조</div>
+      <a href="#" style="border:1px solid var(--border);color:var(--text-muted);padding:7px 16px;font-size:12px;border-radius:2px;white-space:nowrap;">공고 보기</a>
+    </div>
+  </section>
+
+  <!-- ── 관람후기 ── -->
+  <section class="sub-section" id="review">
+    <h3 class="sub-section-title">관람후기</h3>
+    <p class="sub-section-sub">방문객이 남긴 생생한 관람 후기를 확인해보세요</p>
+    <div class="review-grid">
+      <div class="review-card"><div class="review-card__stars">★★★★★</div><p class="review-card__text">무령왕릉 특별전이 정말 훌륭했습니다. 국보들을 이렇게 가까이서 볼 수 있다는 게 감동이었어요. 해설사 선생님 설명도 너무 좋았고, 아이들도 굉장히 흥미로워했습니다. 꼭 다시 오고 싶은 박물관입니다!</p><div class="review-card__author"><span>이*영 · 가족 방문</span><span>2025.05.28</span></div></div>
+      <div class="review-card"><div class="review-card__stars">★★★★★</div><p class="review-card__text">공주에 와서 처음 방문했는데 생각보다 훨씬 볼거리가 많았어요. 웅진백제실의 유물들이 압도적이었고, 특히 금제 관장식을 보는 순간 백제 기술력에 놀랐습니다. 무료 관람인 게 믿기지 않을 만큼 수준이 높아요.</p><div class="review-card__author"><span>박*준 · 개인 방문</span><span>2025.05.22</span></div></div>
+      <div class="review-card"><div class="review-card__stars">★★★★☆</div><p class="review-card__text">어린이 고고학 체험교실에 딸아이와 함께 참여했어요. 아이가 직접 발굴 체험을 하면서 역사에 관심을 갖게 됐습니다. 다음 여름방학에도 꼭 신청하려고 합니다. 주차도 넓고 편해서 좋았어요.</p><div class="review-card__author"><span>최*희 · 가족 방문</span><span>2025.05.18</span></div></div>
+      <div class="review-card"><div class="review-card__stars">★★★★★</div><p class="review-card__text">문화가 있는 날 야간개장에 방문했는데 분위기가 너무 좋았어요. 조명이 켜진 박물관과 야외 공원이 환상적이었고, 국악 공연도 감동이었습니다. 공주 여행의 하이라이트가 됐네요!</p><div class="review-card__author"><span>김*수 · 커플 방문</span><span>2025.05.12</span></div></div>
+      <div class="review-card"><div class="review-card__stars">★★★★★</div><p class="review-card__text">단체 관람으로 방문했는데 학예사 선생님의 해설이 정말 전문적이고 흥미로웠습니다. 학생들이 지루해할 줄 알았는데 모두 집중해서 듣더라고요. 사전 예약 절차도 간편하고, 직원분들도 친절했습니다.</p><div class="review-card__author"><span>윤*민 · 단체 방문</span><span>2025.04.30</span></div></div>
+      <div class="review-card"><div class="review-card__stars">★★★★☆</div><p class="review-card__text">충청도 역사문화실이 특히 좋았습니다. 선사시대부터 조선까지 지역 역사를 체계적으로 볼 수 있어서 공부가 많이 됐어요. 카페에서 마신 음료도 맛있었고, 야외 정원에서 쉬기도 좋았습니다.</p><div class="review-card__author"><span>강*호 · 개인 방문</span><span>2025.04.25</span></div></div>
+    </div>
+    <div class="review-write">
+      <h4>관람후기 남기기</h4>
+      <p>국립공주박물관을 방문하신 후기를 남겨주세요. 소중한 의견이 박물관 발전에 도움이 됩니다.</p>
+      <a href="#" class="btn-gold">후기 작성하기 →</a>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<footer class="footer"><div class="footer__top"><div class="container"><div class="footer__grid"><div class="footer__org"><p class="footer__logo-text">국립공주박물관</p><address>[32535] 충청남도 공주시 관광단지길 34<br/>Tel. 041-850-6300</address></div><div class="footer__links-group"><h4>바로가기</h4><ul><li><a href="visit.html">관람안내</a></li><li><a href="exhibit.html">전시</a></li><li><a href="education.html">교육/행사</a></li><li><a href="collection.html">소장품</a></li></ul></div><div class="footer__links-group"><h4>SNS</h4><ul class="footer__sns"><li><a href="#" target="_blank">📘 페이스북</a></li><li><a href="#" target="_blank">📸 인스타그램</a></li><li><a href="#" target="_blank">📝 네이버 블로그</a></li><li><a href="#" target="_blank">▶ 유튜브</a></li></ul></div></div></div></div><div class="footer__middle"><div class="container"><ul class="footer__policy"><li><a href="#">개인정보처리방침</a></li><li><a href="#">정보공개</a></li><li><a href="#">저작권정책</a></li><li><a href="#">이메일집단수집거부</a></li></ul></div></div><div class="footer__bottom"><div class="container"><p class="footer__copy">COPYRIGHT 2025 GONGJU NATIONAL MUSEUM. ALL RIGHTS RESERVED.</p><div class="footer__related"><button class="related-btn" onclick="toggleRelated()">관련사이트 ▾</button><ul class="related-list" id="relatedList"><li><a href="http://www.museum.go.kr" target="_blank">국립중앙박물관</a></li><li><a href="http://gyeongju.museum.go.kr" target="_blank">국립경주박물관</a></li><li><a href="http://buyeo.museum.go.kr" target="_blank">국립부여박물관</a></li></ul></div></div></div><button class="to-top" id="toTop" onclick="scrollToTop()">▲</button></footer>
+
+<script src="script.js"></script>
+<script>
+function switchNewsTab(btn, panelId){
+  document.querySelectorAll('.news-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  const p = document.getElementById(panelId);
+  if(p) p.classList.add('active');
+}
+function toggleRelated(){document.getElementById('relatedList')?.classList.toggle('open');}
+function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'});}
+window.addEventListener('scroll',()=>{document.getElementById('toTop')?.classList.toggle('visible',window.scrollY>400);});
+</script>
+</body>
+</html>

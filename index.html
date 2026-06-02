@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>국립공주박물관</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- 정부 공식 누리집 안내 바 -->
+  <div class="gov-bar">
+    <div class="gov-bar__inner">
+      <span class="gov-bar__flag-emoji">🇰🇷</span>
+      <span>이 누리집은 대한민국 공식 전자정부 누리집입니다.</span>
+      <button class="gov-bar__toggle" onclick="toggleGovInfo()">공식 누리집 확인방법 ▾</button>
+    </div>
+    <div class="gov-info" id="govInfo">
+      <p>go.kr 주소를 사용하는 누리집은 대한민국 정부기관이 관리하는 누리집입니다.<br />
+        이 밖에 or.kr 또는 .kr 등 다른 도메인 주소를 사용하고 있다면 아래 URL에서 도메인 주소를 확인해 보세요.<br />
+        <a href="https://uiux.egovframe.go.kr/search.do" target="_blank">운영중인 공식 누리집보기 ↗</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- 빠른 정보 바 -->
+  <div class="info-bar">
+    <div class="info-bar__inner container">
+      <ul class="info-bar__list">
+        <li><strong>관람시간</strong> <span>09:00 - 18:00</span> (주말·공휴일 동일)</li>
+        <li><strong>휴관일</strong> <span>매주 월요일</span>, 1월 1일, 설날, 추석</li>
+        <li><strong>문의전화</strong> <span>041-850-6300</span></li>
+      </ul>
+      <a href="reservation.html" class="info-bar__reserve">통합예약 서비스 →</a>
+    </div>
+  </div>
+
+  <!-- 헤더 -->
+  <header class="header" id="header">
+    <div class="header__inner container">
+      <h1 class="header__logo">
+        <a href="index.html">
+          <span class="logo-sub">문화체육관광부</span>
+          <span class="logo-main">국립공주박물관</span>
+        </a>
+      </h1>
+      <div class="header__utils">
+        <a href="#" class="util-link">로그인</a>
+        <div class="lang-select">
+          <button class="lang-select__btn" onclick="toggleLang()">KOR ▾</button>
+          <ul class="lang-select__list" id="langList">
+            <li class="active"><a href="#">KOR</a></li>
+            <li><a href="#" target="_blank">ENG</a></li>
+            <li><a href="#" target="_blank">CHN</a></li>
+            <li><a href="#" target="_blank">JPN</a></li>
+          </ul>
+        </div>
+        <button class="all-menu-btn" onclick="toggleAllMenu()" aria-label="전체메뉴">
+          <span class="hamburger"></span>
+          <span class="hamburger"></span>
+          <span class="hamburger"></span>
+          <span>전체메뉴</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- GNB 네비게이션 -->
+    <nav class="gnb" id="gnb">
+      <div class="container">
+        <ul class="gnb__list">
+          <li class="gnb__item">
+            <a href="visit.html" class="gnb__link">관람정보</a>
+            <div class="gnb__sub">
+              <div class="gnb__sub-inner">
+                <div class="gnb__sub-desc">
+                  <p>백제의 문화와 충청남도의<br />역사를 한눈에 볼 수 있는<br />국립공주박물관</p>
+                </div>
+                <ul class="gnb__sub-list">
+                  <li><a href="visit.html">이용안내</a></li>
+                  <li><a href="reservation.html">예약안내</a></li>
+                  <li><a href="about.html">박물관소개</a></li>
+                  <li><a href="direction.html">오시는길</a></li>
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li class="gnb__item">
+            <a href="exhibit.html" class="gnb__link">전시</a>
+            <div class="gnb__sub">
+              <div class="gnb__sub-inner">
+                <div class="gnb__sub-desc">
+                  <p>백제의 문화와 충청남도의<br />역사를 한눈에 볼 수 있는<br />국립공주박물관</p>
+                </div>
+                <ul class="gnb__sub-list">
+                  <li><a href="exhibit.html">상설전시</a></li>
+                  <li><a href="exhibit.html#special">특별전시</a></li>
+                  <li><a href="collection.html">소장품</a></li>
+                  <li><a href="exhibit.html#cyber">사이버투어</a></li>
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li class="gnb__item">
+            <a href="education.html" class="gnb__link">교육/행사</a>
+            <div class="gnb__sub">
+              <div class="gnb__sub-inner">
+                <div class="gnb__sub-desc">
+                  <p>백제의 문화와 충청남도의<br />역사를 한눈에 볼 수 있는<br />국립공주박물관</p>
+                </div>
+                <ul class="gnb__sub-list">
+                  <li><a href="education.html">교육프로그램</a></li>
+                  <li><a href="education.html#event">문화행사</a></li>
+                  <li><a href="education.html#school">학교단체교육</a></li>
+                  <li><a href="education.html#archive">교육자료실</a></li>
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li class="gnb__item">
+            <a href="collection.html" class="gnb__link">유물/학습</a>
+            <div class="gnb__sub">
+              <div class="gnb__sub-inner">
+                <div class="gnb__sub-desc">
+                  <p>백제의 문화와 충청남도의<br />역사를 한눈에 볼 수 있는<br />국립공주박물관</p>
+                </div>
+                <ul class="gnb__sub-list">
+                  <li><a href="collection.html">소장품 검색</a></li>
+                  <li><a href="collection.html#major">주요 소장품</a></li>
+                  <li><a href="collection.html#archive">웅진백제문화 아카이브</a></li>
+                  <li><a href="collection.html#research">학술자료</a></li>
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li class="gnb__item">
+            <a href="news.html" class="gnb__link">소식/참여</a>
+            <div class="gnb__sub">
+              <div class="gnb__sub-inner">
+                <div class="gnb__sub-desc">
+                  <p>백제의 문화와 충청남도의<br />역사를 한눈에 볼 수 있는<br />국립공주박물관</p>
+                </div>
+                <ul class="gnb__sub-list">
+                  <li><a href="news.html">알림·소식</a></li>
+                  <li><a href="news.html#press">보도자료</a></li>
+                  <li><a href="news.html#recruit">채용</a></li>
+                  <li><a href="news.html#review">관람후기</a></li>
+                </ul>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- 전체메뉴 오버레이 -->
+  <div class="all-menu-overlay" id="allMenuOverlay">
+    <div class="all-menu">
+      <div class="all-menu__header">
+        <h2>전체메뉴</h2>
+        <button class="all-menu__close" onclick="toggleAllMenu()">✕</button>
+      </div>
+      <div class="all-menu__body">
+        <ul class="all-menu__cats">
+          <li>
+            <strong>관람정보</strong>
+            <ul>
+              <li><a href="visit.html">이용안내</a></li>
+              <li><a href="reservation.html">예약안내</a></li>
+              <li><a href="about.html">박물관소개</a></li>
+              <li><a href="direction.html">오시는길</a></li>
+            </ul>
+          </li>
+          <li>
+            <strong>전시</strong>
+            <ul>
+              <li><a href="exhibit.html">상설전시</a></li>
+              <li><a href="exhibit.html#special">특별전시</a></li>
+              <li><a href="exhibit.html#outdoor">옥외전시</a></li>
+              <li><a href="exhibit.html#cyber">사이버투어</a></li>
+            </ul>
+          </li>
+          <li>
+            <strong>교육/행사</strong>
+            <ul>
+              <li><a href="education.html">교육프로그램</a></li>
+              <li><a href="education.html#event">문화행사</a></li>
+              <li><a href="education.html#school">학교단체교육</a></li>
+              <li><a href="education.html#archive">교육자료실</a></li>
+            </ul>
+          </li>
+          <li>
+            <strong>유물/학습</strong>
+            <ul>
+              <li><a href="collection.html">소장품</a></li>
+              <li><a href="collection.html#major">주요 소장품</a></li>
+              <li><a href="collection.html#archive">웅진백제문화 아카이브</a></li>
+              <li><a href="collection.html#research">학술자료</a></li>
+            </ul>
+          </li>
+          <li>
+            <strong>소식/참여</strong>
+            <ul>
+              <li><a href="news.html">알림·소식</a></li>
+              <li><a href="news.html#press">보도자료</a></li>
+              <li><a href="news.html#recruit">채용</a></li>
+              <li><a href="news.html#review">관람후기</a></li>
+            </ul>
+          </li>
+          <li>
+            <strong>정보공개</strong>
+            <ul>
+              <li><a href="news.html">정보공개제도안내</a></li>
+              <li><a href="news.html">사전정보공표</a></li>
+              <li><a href="news.html">공공데이터개방</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 메인 콘텐츠 -->
+  <main id="main">
+
+    <!-- 메인 슬라이더 -->
+    <section class="main-slider" aria-label="메인 슬라이더">
+      <div class="slider-track" id="sliderTrack">
+
+        <!-- 슬라이드 1 -->
+        <div class="slide">
+          <div class="slide__bg">
+            <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1600&q=80" alt="무령왕릉 특별전" class="slide__bg-img" />
+            <div class="slide__overlay"></div>
+          </div>
+          <div class="slide__content container">
+            <div class="slide__text">
+              <p class="slide__label">특별전시</p>
+              <h2 class="slide__title">무령왕과<br />웅진백제의 찬란한 문화</h2>
+              <p class="slide__desc">백제 문화의 정수를 만나다</p>
+              <a href="exhibit.html#special" class="slide__btn">자세히 보기 →</a>
+            </div>
+            <div class="slide__deco">
+              <div class="slide__circle c1"></div>
+              <div class="slide__circle c2"></div>
+              <div class="slide__emblem">王</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 슬라이드 2 -->
+        <div class="slide">
+          <div class="slide__bg">
+            <img src="https://images.unsplash.com/photo-1608472378547-94766e2a1acd?w=1600&q=80" alt="웅진백제실 상설전시" class="slide__bg-img" />
+            <div class="slide__overlay" style="background:linear-gradient(90deg,rgba(10,30,60,0.82) 40%,rgba(10,30,60,0.2) 100%)"></div>
+          </div>
+          <div class="slide__content container">
+            <div class="slide__text">
+              <p class="slide__label">상설전시</p>
+              <h2 class="slide__title">웅진백제실<br />충남역사문화실</h2>
+              <p class="slide__desc">천년의 역사가 살아 숨쉬는 공간</p>
+              <a href="exhibit.html" class="slide__btn">전시 보기 →</a>
+            </div>
+            <div class="slide__deco">
+              <div class="slide__circle c1"></div>
+              <div class="slide__circle c2"></div>
+              <div class="slide__emblem">百濟</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 슬라이드 3 -->
+        <div class="slide">
+          <div class="slide__bg">
+            <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=1600&q=80" alt="교육 체험 프로그램" class="slide__bg-img" />
+            <div class="slide__overlay" style="background:linear-gradient(90deg,rgba(10,40,10,0.82) 40%,rgba(10,40,10,0.2) 100%)"></div>
+          </div>
+          <div class="slide__content container">
+            <div class="slide__text">
+              <p class="slide__label">교육/행사</p>
+              <h2 class="slide__title">살아있는 역사<br />체험 프로그램</h2>
+              <p class="slide__desc">다양한 교육·문화 프로그램 참여</p>
+              <a href="education.html" class="slide__btn">프로그램 보기 →</a>
+            </div>
+            <div class="slide__deco">
+              <div class="slide__circle c1"></div>
+              <div class="slide__circle c2"></div>
+              <div class="slide__emblem">敎</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 슬라이드 4 -->
+        <div class="slide">
+          <div class="slide__bg">
+            <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1600&q=80" alt="국립공주박물관 전경" class="slide__bg-img" />
+            <div class="slide__overlay" style="background:linear-gradient(90deg,rgba(40,20,10,0.82) 40%,rgba(40,20,10,0.2) 100%)"></div>
+          </div>
+          <div class="slide__content container">
+            <div class="slide__text">
+              <p class="slide__label">박물관 안내</p>
+              <h2 class="slide__title">국립공주박물관에<br />오신 것을 환영합니다</h2>
+              <p class="slide__desc">백제 역사와 문화의 중심지</p>
+              <a href="visit.html" class="slide__btn">관람안내 →</a>
+            </div>
+            <div class="slide__deco">
+              <div class="slide__circle c1"></div>
+              <div class="slide__circle c2"></div>
+              <div class="slide__emblem">公</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 슬라이더 컨트롤 -->
+      <div class="slider-controls">
+        <button class="slider-btn prev" onclick="changeSlide(-1)" aria-label="이전 슬라이드">&#8249;</button>
+        <div class="slider-dots" id="sliderDots">
+          <button class="dot active" onclick="goToSlide(0)"></button>
+          <button class="dot" onclick="goToSlide(1)"></button>
+          <button class="dot" onclick="goToSlide(2)"></button>
+          <button class="dot" onclick="goToSlide(3)"></button>
+        </div>
+        <button class="slider-btn next" onclick="changeSlide(1)" aria-label="다음 슬라이드">&#8250;</button>
+        <button class="slider-pause" id="sliderPause" onclick="toggleSliderPause()" aria-label="슬라이더 정지">
+          <span class="pause-icon">⏸</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- 빠른 메뉴 -->
+    <section class="quick-menu">
+      <div class="container">
+        <ul class="quick-menu__list">
+          <li>
+            <a href="visit.html" class="quick-item">
+              <div class="quick-item__icon">
+                <img src="images/museum.jpg" alt="">
+              </div>
+              <span>관람안내</span>
+            </a>
+          </li>
+          <li>
+            <a href="reservation.html" class="quick-item">
+              <div class="quick-item__icon">
+                <img src="images/reservation.png" alt="">
+              </div>
+              <span>예약안내</span>
+            </a>
+          </li>
+          <li>
+            <a href="exhibit.html" class="quick-item">
+              <div class="quick-item__icon">
+                <img src="images/display.jpg" alt="">
+              </div>
+              <span>전시안내</span>
+            </a>
+          </li>
+          <li>
+            <a href="education.html" class="quick-item">
+              <div class="quick-item__icon">
+                <img src="images/edu-program.jpg" alt="">
+              </div>
+              <span>교육프로그램</span>
+            </a>
+          </li>
+          <li>
+            <a href="collection.html" class="quick-item">
+              <div class="quick-item__icon">
+                <img src="images/search.png" alt="">
+              </div>
+              <span>소장품검색</span>
+            </a>
+          </li>
+          <li>
+            <a href="direction.html" class="quick-item">
+              <div class="quick-item__icon">
+                <img src="images/address.png" alt="">
+              </div>
+              <span>오시는길</span>
+            </a>
+          </li>
+          <li>
+            <a href="exhibit.html#cyber" class="quick-item">
+              <div class="quick-item__icon">
+                <img src="images/cyber tour.png" alt="">
+              </div>
+              <span>사이버투어</span>
+            </a>
+          </li>
+          <li>
+            <a href="education.html#event" class="quick-item">
+              <div class="quick-item__icon">
+                <img src="images/culture event.jpg" alt="">
+              </div>
+              <span>문화행사</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 전시 섹션 -->
+    <section class="section-exhibit">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">전시</h2>
+          <p class="section-sub">백제의 찬란한 문화유산을 만나보세요</p>
+          <a href="exhibit.html" class="section-more">전시 전체보기 +</a>
+        </div>
+        <div class="exhibit-tabs">
+          <button class="tab-btn active" data-tab="current" onclick="switchTab(this, 'current')">현재전시</button>
+          <button class="tab-btn" data-tab="upcoming" onclick="switchTab(this, 'upcoming')">예정전시</button>
+          <button class="tab-btn" data-tab="past" onclick="switchTab(this, 'past')">지난전시</button>
+        </div>
+        <div class="exhibit-grid" id="exhibitGrid">
+          <article class="exhibit-card">
+            <a href="exhibit.html#special">
+              <div class="exhibit-card__thumb">
+                <img src="images/address.png" alt="무령왕릉 발굴 50주년" class="exhibit-card__img-real" />
+                <span class="exhibit-card__badge">특별전시</span>
+              </div>
+              <div class="exhibit-card__info">
+                <h3>무령왕릉 발굴 50주년 기념 특별전</h3>
+                <p class="exhibit-card__period">2025.04.01 ~ 2025.07.31</p>
+                <p class="exhibit-card__place">국립공주박물관</p>
+              </div>
+            </a>
+          </article>
+          <article class="exhibit-card">
+            <a href="exhibit.html">
+              <div class="exhibit-card__thumb">
+                <img src="images/웅진백제실.jpg" alt="웅진백제실" />
+                <span class="exhibit-card__badge badge--permanent">상설전시</span>
+              </div>
+              <div class="exhibit-card__info">
+                <h3>웅진백제실 — 백제의 숨결</h3>
+                <p class="exhibit-card__period">상설</p>
+                <p class="exhibit-card__place">국립공주박물관 1층</p>
+              </div>
+            </a>
+          </article>
+          <article class="exhibit-card">
+            <a href="exhibit.html#chungnam">
+              <div class="exhibit-card__thumb">
+                <img src="https://images.unsplash.com/photo-1560707303-4e980ce876ad?w=600&q=80" alt="충청남도 역사문화실" class="exhibit-card__img-real" />
+                <span class="exhibit-card__badge badge--permanent">상설전시</span>
+              </div>
+              <div class="exhibit-card__info">
+                <h3>충청남도 역사문화실</h3>
+                <p class="exhibit-card__period">상설</p>
+                <p class="exhibit-card__place">국립공주박물관 2층</p>
+              </div>
+            </a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 교육/행사 & 소식 -->
+    <section class="section-news">
+      <div class="container">
+        <div class="news-grid">
+          <!-- 교육/행사 -->
+          <div class="news-col">
+            <div class="news-col__header">
+              <h2>교육/행사</h2>
+              <a href="education.html" class="more-link">더보기 +</a>
+            </div>
+            <ul class="news-list">
+              <li class="news-item">
+                <a href="education.html">
+                  <span class="news-item__cat edu">교육</span>
+                  <div class="news-item__body">
+                    <p class="news-item__title">2025년 여름방학 어린이 고고학 체험교실</p>
+                    <span class="news-item__date">2025.07.01 ~ 2025.08.15</span>
+                  </div>
+                </a>
+              </li>
+              <li class="news-item">
+                <a href="education.html">
+                  <span class="news-item__cat edu">교육</span>
+                  <div class="news-item__body">
+                    <p class="news-item__title">백제 문화 학교 단체 교육 프로그램 운영</p>
+                    <span class="news-item__date">2025.03.01 ~ 2025.12.31</span>
+                  </div>
+                </a>
+              </li>
+              <li class="news-item">
+                <a href="education.html#event">
+                  <span class="news-item__cat event">행사</span>
+                  <div class="news-item__body">
+                    <p class="news-item__title">국립공주박물관 문화가 있는 날 행사</p>
+                    <span class="news-item__date">2025.05.28</span>
+                  </div>
+                </a>
+              </li>
+              <li class="news-item">
+                <a href="education.html#event">
+                  <span class="news-item__cat event">행사</span>
+                  <div class="news-item__body">
+                    <p class="news-item__title">무령왕릉 사마의 여름 밤 특별 행사</p>
+                    <span class="news-item__date">2025.07.19 ~ 2025.07.20</span>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- 알림·소식 -->
+          <div class="news-col">
+            <div class="news-col__header">
+              <h2>알림·소식</h2>
+              <a href="news.html" class="more-link">더보기 +</a>
+            </div>
+            <ul class="news-list">
+              <li class="news-item">
+                <a href="news.html#recruit">
+                  <span class="news-item__cat notice">알림</span>
+                  <div class="news-item__body">
+                    <p class="news-item__title">2025년 하반기 임시직 채용 공고 안내</p>
+                    <span class="news-item__date">2025.05.15</span>
+                  </div>
+                </a>
+              </li>
+              <li class="news-item">
+                <a href="news.html#press">
+                  <span class="news-item__cat press">보도</span>
+                  <div class="news-item__body">
+                    <p class="news-item__title">무령왕릉 1호 금제 관장식 3D 복원 성공</p>
+                    <span class="news-item__date">2025.05.10</span>
+                  </div>
+                </a>
+              </li>
+              <li class="news-item">
+                <a href="news.html">
+                  <span class="news-item__cat notice">알림</span>
+                  <div class="news-item__body">
+                    <p class="news-item__title">박물관 야외 정비공사로 인한 일부 구간 통제</p>
+                    <span class="news-item__date">2025.04.29</span>
+                  </div>
+                </a>
+              </li>
+              <li class="news-item">
+                <a href="news.html">
+                  <span class="news-item__cat press">보도</span>
+                  <div class="news-item__body">
+                    <p class="news-item__title">국립공주박물관, 웹소식지 '공주의 다이어리' 발간</p>
+                    <span class="news-item__date">2025.04.01</span>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- 이달의 행사 캘린더 -->
+          <div class="news-col">
+            <div class="news-col__header">
+              <h2>이달의 행사</h2>
+              <a href="education.html#event" class="more-link">더보기 +</a>
+            </div>
+            <div class="mini-calendar" id="miniCalendar"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 주요 소장품 -->
+    <section class="section-collection">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">주요 소장품</h2>
+          <p class="section-sub">국보와 보물로 지정된 무령왕릉의 귀중한 유물</p>
+          <a href="collection.html" class="section-more">소장품 전체보기 +</a>
+        </div>
+        <div class="collection-grid">
+          <a href="collection.html#item1" class="collection-item">
+            <div class="collection-item__thumb">
+              <img src="images/무령왕 금제 관장식.jpg" alt="금제 관장식" />
+              <div class="coll-overlay"><span>자세히 보기 →</span></div>
+            </div>
+            <div class="collection-item__info">
+              <span class="coll-grade">국보</span>
+              <h3>무령왕 금제 관장식</h3>
+              <p>백제 무령왕(武寧王) / 국보 제154호</p>
+            </div>
+          </a>
+          <a href="collection.html#item2" class="collection-item">
+            <div class="collection-item__thumb">
+              <img src="images/무령왕릉 석수.jpg" alt="석수" />
+              <div class="coll-overlay"><span>자세히 보기 →</span></div>
+            </div>
+            <div class="collection-item__info">
+              <span class="coll-grade">국보</span>
+              <h3>무령왕릉 석수</h3>
+              <p>백제 / 국보 제162호</p>
+            </div>
+          </a>
+          <a href="collection.html#item3" class="collection-item">
+            <div class="collection-item__thumb">
+              <img src="images/무령왕비 금제 관장식.jpg" alt="무령왕비 금제 관장식" />
+              <div class="coll-overlay"><span>자세히 보기 →</span></div>
+            </div>
+            <div class="collection-item__info">
+              <span class="coll-grade">국보</span>
+              <h3>무령왕비 금제 관장식</h3>
+              <p>백제 무령왕비 / 국보 제155호</p>
+            </div>
+          </a>
+          <a href="collection.html#item4" class="collection-item">
+            <div class="collection-item__thumb">
+              <img src="images/무령왕릉 지석.jpg" alt="지석" />
+              <div class="coll-overlay"><span>자세히 보기 →</span></div>
+            </div>
+            <div class="collection-item__info">
+              <span class="coll-grade">국보</span>
+              <h3>무령왕릉 지석</h3>
+              <p>백제 523년 / 국보 제163호</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 온라인 서비스 배너 -->
+    <section class="section-online">
+      <div class="container">
+        <div class="online-grid">
+          <a href="exhibit.html#cyber" class="online-card oc-1">
+            <div class="online-card__inner">
+              <span class="online-card__icon">
+                <img src="images/cyber tour.jpg" alt="">
+              </span>
+              <h3>사이버투어</h3>
+              <p>360° 가상 박물관 투어</p>
+              <span class="online-card__arrow">→</span>
+            </div>
+          </a>
+          <a href="exhibit.html#online" class="online-card oc-2">
+            <div class="online-card__inner">
+              <span class="online-card__icon"><img src="images/online museum.jpg" alt=""></span>
+              <h3>온라인 전시관</h3>
+              <p>디지털로 만나는 전시</p>
+              <span class="online-card__arrow">→</span>
+            </div>
+          </a>
+          <a href="collection.html" class="online-card oc-3">
+            <div class="online-card__inner">
+              <span class="online-card__icon"><img src="images/collection searching.jpg" alt=""></span>
+              <h3>소장품 검색</h3>
+              <p>e뮤지엄 · 유물 데이터베이스</p>
+              <span class="online-card__arrow">→</span>
+            </div>
+          </a>
+          <a href="news.html" class="online-card oc-4">
+            <div class="online-card__inner">
+              <span class="online-card__icon"><img src="images/web newsletter.jpg" alt=""></span>
+              <h3>웹소식지</h3>
+              <p>공주의 다이어리</p>
+              <span class="online-card__arrow">→</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 푸터 -->
+  <footer class="footer">
+    <div class="footer__top">
+      <div class="container">
+        <div class="footer__grid">
+          <div class="footer__org">
+            <p class="footer__logo-text">국립공주박물관</p>
+            <address>
+              [32535] 충청남도 공주시 관광단지길 34 (웅진동 360번지)<br />
+              Tel. 041-850-6300
+            </address>
+          </div>
+          <div class="footer__links-group">
+            <h4>관람정보</h4>
+            <ul>
+              <li><a href="visit.html">이용안내</a></li>
+              <li><a href="reservation.html">예약안내</a></li>
+              <li><a href="direction.html">오시는길</a></li>
+              <li><a href="about.html">박물관소개</a></li>
+            </ul>
+          </div>
+          <div class="footer__links-group">
+            <h4>전시·교육</h4>
+            <ul>
+              <li><a href="exhibit.html">상설전시</a></li>
+              <li><a href="exhibit.html#special">특별전시</a></li>
+              <li><a href="education.html">교육프로그램</a></li>
+              <li><a href="education.html#event">문화행사</a></li>
+            </ul>
+          </div>
+          <div class="footer__links-group">
+            <h4>SNS</h4>
+            <ul class="footer__sns">
+              <li><a href="#" target="_blank">📘 페이스북</a></li>
+              <li><a href="#" target="_blank">📸 인스타그램</a></li>
+              <li><a href="#" target="_blank">📝 네이버 블로그</a></li>
+              <li><a href="#" target="_blank">▶ 유튜브</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer__middle">
+      <div class="container">
+        <ul class="footer__policy">
+          <li><a href="#">개인정보처리방침</a></li>
+          <li><a href="#">정보공개</a></li>
+          <li><a href="#">저작권정책</a></li>
+          <li><a href="#">이메일집단수집거부</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="container">
+        <p class="footer__copy">COPYRIGHT 2025 GONGJU NATIONAL MUSEUM. ALL RIGHTS RESERVED.</p>
+        <div class="footer__related">
+          <button class="related-btn" onclick="toggleRelated()">관련사이트 ▾</button>
+          <ul class="related-list" id="relatedList">
+            <li><a href="http://www.museum.go.kr" target="_blank">국립중앙박물관</a></li>
+            <li><a href="http://gyeongju.museum.go.kr" target="_blank">국립경주박물관</a></li>
+            <li><a href="http://gwangju.museum.go.kr" target="_blank">국립광주박물관</a></li>
+            <li><a href="http://buyeo.museum.go.kr" target="_blank">국립부여박물관</a></li>
+            <li><a href="http://cheongju.museum.go.kr" target="_blank">국립청주박물관</a></li>
+            <li><a href="http://iksan.museum.go.kr" target="_blank">국립익산박물관</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <button class="to-top" id="toTop" onclick="scrollToTop()" aria-label="상단으로">▲</button>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
