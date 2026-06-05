@@ -147,4 +147,4 @@ gongju-museum_clone/
 
 ### 배포 주소
 
-[GitHub Pages 프로젝트](https://sywtp03.github.io/gongju-museum_clone/?utm_source=chatgpt.com)
+[GitHub Pages 프로젝트] https://sywtp03.github.io/gongju-museum_clone/
